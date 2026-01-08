@@ -1,4 +1,4 @@
-﻿namespace ShareXe.Base.Filters
+﻿namespace ShareXe.Base.Helpers
 {
     public class SwaggerExample
     {
