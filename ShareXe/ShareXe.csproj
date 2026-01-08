@@ -11,8 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Base\Enums\" />
-    <Folder Include="Base\Filters\" />
     <Folder Include="Base\Specifications\" />
     <Folder Include="Models\" />
     <Folder Include="Modules\Auth\" />

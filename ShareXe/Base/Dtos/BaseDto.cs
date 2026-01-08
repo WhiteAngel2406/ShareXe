@@ -1,6 +1,6 @@
 ﻿namespace ShareXe.Base.Models
 {
-    public class BaseDtos
+    public class BaseDto
     {
     }
 }
