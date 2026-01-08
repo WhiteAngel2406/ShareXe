@@ -1,4 +1,4 @@
-﻿namespace ShareXe.Helpers
+﻿namespace ShareXe.Base.Helpers
 {
     public class SecurityHelper
     {
