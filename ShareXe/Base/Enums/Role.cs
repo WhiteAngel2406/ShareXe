@@ -1,6 +1,9 @@
 ﻿    namespace ShareXe.Base.Enums
 {
-    public class Role
+    public enum Role
     {
+        Admin = 0,
+        Driver = 1,   
+        Passenger = 2   
     }
 }

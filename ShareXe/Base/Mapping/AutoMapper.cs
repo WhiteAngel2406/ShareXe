@@ -1,6 +1,19 @@
-﻿namespace ShareXe.Base.Mapping
+﻿using AutoMapper;
+
+namespace ShareXe.Base.Mapping
 {
-    public class AutoMapper
+    public class MappingProfile : Profile
     {
+        public MappingProfile()
+        {
+            // Đây là nơi chứa các quy tắc Map. 
+            // Hiện tại chưa có Entity cụ thể nên mình để comment ví dụ thôi nhé.
+
+            // Ví dụ: Khi có Db, bạn sẽ bỏ comment dòng dưới
+            // CreateMap<Car, CarDto>().ReverseMap();
+            // CreateMap<Trip, TripDto>().ReverseMap();
+
+            // Nguyên tắc: CreateMap<Source, Destination>();
+        }
     }
 }
