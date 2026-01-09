@@ -28,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Base\Filters\" />
     <Folder Include="Base\Specifications\" />
     <Folder Include="Modules\Auth\" />
   </ItemGroup>

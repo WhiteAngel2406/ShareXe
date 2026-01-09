@@ -42,12 +42,35 @@ namespace ShareXe.Base.Repositories.Interfaces
         }
 
         // Hàm tìm kiếm linh hoạt
-        public async Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate)
+        public async Task<IEnumerable<T>> GetAsync(
+     Expression<Func<T, bool>> filter = null,
+     Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+     string includeProperties = "")
         {
-            return await _context.Set<T>()
-                                .Where(x => !x.IsDeleted)
-                                .Where(predicate)
-                                .ToListAsync();
+            IQueryable<T> query = _context.Set<T>();
+
+            // 1. Xử lý Filter (Where)
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            // 2. Xử lý Include (Join bảng) - Ví dụ: lấy Trip kèm theo Driver
+            foreach (var includeProperty in includeProperties.Split
+                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
+            }
+
+            // 3. Xử lý OrderBy (Sắp xếp)
+            if (orderBy != null)
+            {
+                return await orderBy(query).ToListAsync();
+            }
+            else
+            {
+                return await query.ToListAsync();
+            }
         }
 
         public async Task UpdateAsync(T entity)
@@ -57,5 +80,7 @@ namespace ShareXe.Base.Repositories.Interfaces
             _context.Entry(entity).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
+
+      
     }
 }
