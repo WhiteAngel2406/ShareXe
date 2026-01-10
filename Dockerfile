@@ -1,0 +1,19 @@
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /app
+
+COPY ShareXe/ShareXe.csproj ./ShareXe/
+RUN dotnet restore ./ShareXe/ShareXe.csproj
+COPY . .
+WORKDIR /app/ShareXe
+RUN dotnet build "ShareXe.csproj" -c Release -o /app/build
+RUN dotnet publish "ShareXe.csproj" -c Release -o /app/publish /p:UseAppHost=false
+
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS release
+WORKDIR /app
+
+COPY --from=build /app/publish .
+
+ENV ASPNETCORE_URLS=http://+:5000
+EXPOSE 5000
+
+ENTRYPOINT ["dotnet", "ShareXe.dll"]

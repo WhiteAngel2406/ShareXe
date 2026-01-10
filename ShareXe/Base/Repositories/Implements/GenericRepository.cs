@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ShareXe.Base.Entity;
-using ShareXe.Base.Repositories.Implements;
+using ShareXe.Base.Entities;
+using ShareXe.Base.Repositories.Interfaces;
 using ShareXe.Models;
 using System.Linq.Expressions;
 
-namespace ShareXe.Base.Repositories.Interfaces
+namespace ShareXe.Base.Repositories.Implements
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
@@ -32,7 +32,7 @@ namespace ShareXe.Base.Repositories.Interfaces
         {
             // Tự động lọc các bản ghi chưa bị xóa (Soft Delete)
             return await _context.Set<T>()
-                                 .Where(x => !x.IsDeleted)
+                                 .Where(x => x.DeletedAt == null)
                                  .ToListAsync();
         }
 
@@ -81,6 +81,10 @@ namespace ShareXe.Base.Repositories.Interfaces
             await _context.SaveChangesAsync();
         }
 
-      
+        public Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate)
+        {
+            //   TODO: Implement this method
+            throw new NotImplementedException();
+        }
     }
 }

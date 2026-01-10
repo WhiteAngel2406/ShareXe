@@ -6,7 +6,7 @@ namespace ShareXe.Base.Extensions
 {
     public static class ServiceExtension
     {
-        public static void AddInfrastructure(this IServiceCollection services)
+        public static void AddSwaggerConfig(this IServiceCollection services)
         {
             // Cấu hình Swagger
             services.AddSwaggerGen(c =>
