@@ -1,10 +1,9 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
-COPY ShareXe/ShareXe.csproj ./ShareXe/
-RUN dotnet restore ./ShareXe/ShareXe.csproj
+COPY ShareXe.csproj .
+RUN dotnet restore
 COPY . .
-WORKDIR /app/ShareXe
 RUN dotnet build "ShareXe.csproj" -c Release -o /app/build
 RUN dotnet publish "ShareXe.csproj" -c Release -o /app/publish /p:UseAppHost=false
 

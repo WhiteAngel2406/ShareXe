@@ -7,7 +7,7 @@ Env.TraversePath().Load();
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDatabaseConfig();
-
+builder.Services.AddAutoInject();
 builder.Services.AddControllers();
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddCors(options =>
