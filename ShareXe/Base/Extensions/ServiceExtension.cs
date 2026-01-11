@@ -41,7 +41,7 @@ namespace ShareXe.Base.Extensions
                     }
                 });
 
-                // 2. Kích hoạt Example Filters (Để hiện ví dụ request/response)
+               
                 c.ExampleFilters();
             });
 

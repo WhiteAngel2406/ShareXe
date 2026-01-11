@@ -25,7 +25,6 @@ namespace ShareXe.Base.Helpers
             return stringBuilder.ToString().Normalize(NormalizationForm.FormC).ToLower();
         }
 
-        
         // 2. Validate số điện thoại Việt Nam (Regex) 
         // Chấp nhận: 0912345678, +84912345678
         public static bool IsValidPhoneNumber(string phone)

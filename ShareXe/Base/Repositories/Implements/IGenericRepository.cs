@@ -21,6 +21,9 @@ namespace ShareXe.Base.Repositories.Implements
         Task DeleteAsync(T entity);
 
         // Nâng cao: Tìm kiếm theo điều kiện (Expression)
-        Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate);
+        Task<IEnumerable<T>> GetAsync(
+        Expression<Func<T, bool>> filter = null,
+        Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+        string includeProperties = "");
     }
 }
