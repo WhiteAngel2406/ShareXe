@@ -1,6 +1,0 @@
-@ShareXe_HostAddress = http://localhost:5012
-
-GET {{ShareXe_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

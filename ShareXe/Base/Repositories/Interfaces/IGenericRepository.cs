@@ -1,7 +1,7 @@
-﻿using ShareXe.Base.Entity;
+﻿using ShareXe.Base.Entities;
 using System.Linq.Expressions;
 
-namespace ShareXe.Base.Repositories.Implements
+namespace ShareXe.Base.Repositories.Interfaces
 {
     public interface IGenericRepository<T> where T : BaseEntity
     {
