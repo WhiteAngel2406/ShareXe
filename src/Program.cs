@@ -1,6 +1,7 @@
-using ShareXe.Base.Middleware;
 using DotNetEnv;
 using ShareXe.Base.Extensions;
+using ShareXe.Base.Middleware;
+using System.Text.Json;
 
 Env.TraversePath().Load();
 
@@ -8,7 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDatabaseConfig();
 builder.Services.AddAutoInject();
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower;
+});
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddCors(options =>
 {
@@ -19,18 +23,20 @@ builder.Services.AddCors(options =>
 });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 
 var app = builder.Build();
 
 app.WaitForDatabase();
 
-app.UseMiddleware<GlobalExceptionHandler>();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 app.UseCors("AllowAll");
+app.UseExceptionHandler();
 app.MapControllers();
 app.UseAuthentication();
 app.UseAuthorization();

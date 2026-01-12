@@ -1,50 +1,44 @@
-﻿using ShareXe.Base.Dtos;
+﻿using Microsoft.AspNetCore.Diagnostics;
+using ShareXe.Base.Dtos;
+using ShareXe.Base.Enums;
 using ShareXe.Base.Exceptions;
 using System.Net;
-using System.Text.Json;
 
 namespace ShareXe.Base.Middleware
 {
-    public class GlobalExceptionHandler
+    public class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger) : IExceptionHandler
     {
-        private readonly RequestDelegate _next;
-
-        public GlobalExceptionHandler(RequestDelegate next)
+        public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
         {
-            _next = next;
+            var (errorResponse, errorCode) = exception switch
+            {
+                AppException appEx => HandleAppException(appEx),
+                // TODO: Handle more exception types here
+                _ => HandleUnknownException(exception)
+            };
+
+            httpContext.Response.StatusCode = (int)errorCode.Status;
+            await httpContext.Response.WriteAsJsonAsync(errorResponse, cancellationToken);
+            return true;
         }
 
-        public async Task Invoke(HttpContext context)
+        private (ErrorResponse, ErrorCode) HandleAppException(AppException appException)
         {
-            try
-            {
-                await _next(context);
-            }
-            catch (Exception error)
-            {
-                var response = context.Response;
-                response.ContentType = "application/json";
-                var responseModel = new Response<string>() { Succeeded = false, Message = error?.Message };
+            var errorCode = appException.ErrorCode;
+            var message = appException.Message;
 
-                switch (error)
-                {
-                    case AppException e:
-                        // 400
-                        response.StatusCode = (int)HttpStatusCode.BadRequest;
-                        break;
-                    case KeyNotFoundException e:
-                        //  404 
-                        response.StatusCode = (int)HttpStatusCode.NotFound;
-                        break;
-                    default:
-                        // 500 
-                        response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                        break;
-                }
-
-                var result = JsonSerializer.Serialize(responseModel);
-                await response.WriteAsync(result);
+            if (errorCode.Status >= HttpStatusCode.InternalServerError)
+            {
+                logger.LogError(appException, "An application error occurred: {Message}", appException.Message);
             }
+
+            return (ErrorResponse.FromErrorCode(errorCode, message), errorCode);
+        }
+
+        private (ErrorResponse, ErrorCode) HandleUnknownException(Exception exception)
+        {
+            logger.LogError(exception, "An unhandled exception occurred.");
+            return (ErrorResponse.FromErrorCode(ErrorCode.UnknownError), ErrorCode.UnknownError);
         }
     }
 }

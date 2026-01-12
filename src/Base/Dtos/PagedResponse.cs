@@ -1,23 +1,73 @@
 ﻿namespace ShareXe.Base.Dtos
 {
-    public class PagedResponse<T> : Response<T>
+    public class PagedResponse<T> : Response
     {
-        public int PageNumber { get; set; }
-        public int PageSize { get; set; }
-        public int TotalPages { get; set; }
-        public int TotalRecords { get; set; }
+        public List<T> Data { get; set; } = [];
+        public ResponseMetadata Metadata { get; set; } = new ResponseMetadata();
 
-        public PagedResponse(T data, int pageNumber, int pageSize, int totalRecords)
+        protected PagedResponse() { Success = true; }
+
+        public static PagedResponse<T> WithPaging(List<T> data, int totalRecords, int currentPage, int pageSize)
         {
-            this.PageNumber = pageNumber;
-            this.PageSize = pageSize;
-            this.Data = data;
-            this.TotalRecords = totalRecords;
-            this.TotalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);
+            var totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
 
-            this.Succeeded = true;
-            this.Message = null;
-            this.Errors = null;
+            return new PagedResponse<T>
+            {
+                Success = true,
+                Data = data,
+                Metadata = new ResponseMetadata
+                {
+                    Pagination = new ResponseMetadata.ResponsePagination
+                    {
+                        CurrentPage = currentPage,
+                        PageSize = pageSize,
+                        TotalRecords = totalRecords,
+                        TotalPages = totalPages,
+                        HasNextPage = currentPage < totalPages,
+                        HasPreviousPage = currentPage > 1
+                    }
+                }
+            };
+        }
+
+        public static PagedResponse<T> WithFullMetadata(
+            List<T> data,
+            int totalRecords,
+            int currentPage,
+            int pageSize,
+            List<ResponseMetadata.ResponseOrder>? orders = null,
+            Dictionary<string, object>? filters = null
+        )
+        {
+            var response = WithPaging(data, totalRecords, currentPage, pageSize);
+            response.Metadata.Orders = orders ?? [];
+            response.Metadata.Filters = filters ?? [];
+            return response;
+        }
+
+
+        public class ResponseMetadata
+        {
+            public ResponsePagination Pagination { get; set; } = new ResponsePagination();
+            public List<ResponseOrder> Orders { get; set; } = [];
+            public Dictionary<string, object> Filters { get; set; } = [];
+
+
+            public class ResponsePagination
+            {
+                public int CurrentPage { get; set; }
+                public int PageSize { get; set; }
+                public int TotalRecords { get; set; }
+                public int TotalPages { get; set; }
+                public bool HasNextPage { get; set; }
+                public bool HasPreviousPage { get; set; }
+            }
+
+            public class ResponseOrder
+            {
+                public string Field { get; set; } = string.Empty;
+                public string Direction { get; set; } = string.Empty;
+            }
         }
     }
 }

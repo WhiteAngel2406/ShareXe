@@ -1,4 +1,6 @@
 using ShareXe.Base.Attributes;
+using ShareXe.Base.Enums;
+using ShareXe.Base.Exceptions;
 
 namespace ShareXe.Modules.App.Services
 {
@@ -7,7 +9,8 @@ namespace ShareXe.Modules.App.Services
   {
     public string GetHealth()
     {
-      return "Healthy";
+      throw new AppException(ErrorCode.OperationNotAllowed, "Health check is currently disabled.");
+      // return "Healthy";
     }
   }
 }

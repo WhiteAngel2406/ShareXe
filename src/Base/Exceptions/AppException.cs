@@ -1,15 +1,10 @@
 ﻿using System.Globalization;
+using ShareXe.Base.Enums;
 namespace ShareXe.Base.Exceptions
 {
-    public class AppException : Exception
+    public class AppException(ErrorCode errorCode, string? customMessage = null, Exception? innerException = null)
+        : Exception(customMessage ?? errorCode.Message, innerException)
     {
-        public AppException() : base() { }
-
-        public AppException(string message) : base(message) { }
-
-        public AppException(string message, params object[] args)
-            : base(String.Format(CultureInfo.CurrentCulture, message, args))
-        {
-        }
+        public ErrorCode ErrorCode { get; } = errorCode;
     }
 }
