@@ -1,6 +1,7 @@
 using DotNetEnv;
 using ShareXe.Base.Extensions;
 using ShareXe.Base.Middleware;
+using ShareXe.Modules.Minio.Extensions;
 using System.Text.Json;
 
 Env.TraversePath().Load();
@@ -24,6 +25,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options => options.DescribeAllParametersInCamelCase());
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
+builder.Services.AddMinioConfig();
+
 
 var app = builder.Build();
 
