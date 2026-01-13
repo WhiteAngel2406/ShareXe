@@ -18,7 +18,7 @@ namespace ShareXe.Base.Helpers
         }
 
         // 2. Hash 
-        public static string Hash(string text)
+        public static string Hash(string text )
         {
             using (var sha256 = SHA256.Create())
             {
