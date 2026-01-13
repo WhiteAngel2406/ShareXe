@@ -1,4 +1,6 @@
 using ShareXe.Base.Attributes;
+using ShareXe.Base.Enums;
+using ShareXe.Base.Exceptions;
 
 namespace ShareXe.Modules.App.Services
 {
