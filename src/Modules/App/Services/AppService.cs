@@ -9,8 +9,7 @@ namespace ShareXe.Modules.App.Services
   {
     public string GetHealth()
     {
-      throw new AppException(ErrorCode.OperationNotAllowed, "Health check is currently disabled.");
-      // return "Healthy";
+      return "Healthy";
     }
   }
 }

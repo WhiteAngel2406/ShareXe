@@ -11,7 +11,7 @@ namespace ShareXe.Base.Helpers
             if (string.IsNullOrEmpty(input)) return input;
 
             string normalizedString = input.Normalize(NormalizationForm.FormD);
-            StringBuilder stringBuilder = new StringBuilder();
+            StringBuilder stringBuilder = new();
 
             foreach (char c in normalizedString)
             {
@@ -37,7 +37,7 @@ namespace ShareXe.Base.Helpers
         }
 
         // 3. Chuẩn hóa số điện thoại về dạng chuẩn (09xxx) để lưu DB
-        public static string NormalizePhoneNumber(string phone)
+        public static string? NormalizePhoneNumber(string phone)
         {
             if (string.IsNullOrEmpty(phone)) return null;
 
@@ -54,6 +54,14 @@ namespace ShareXe.Base.Helpers
             }
 
             return phone;
+        }
+
+        public static string ToCamelCase(string input)
+        {
+            if (string.IsNullOrEmpty(input) || input.Length < 2)
+                return input;
+
+            return char.ToUpper(input[0]) + input[1..];
         }
     }
 }

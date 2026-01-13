@@ -9,10 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDatabaseConfig();
 builder.Services.AddAutoInject();
-builder.Services.AddControllers().AddJsonOptions(options =>
-{
-    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower;
-});
+builder.Services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower);
+builder.Services.AddCustomValidationResponse();
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddCors(options =>
 {
@@ -22,7 +21,7 @@ builder.Services.AddCors(options =>
               .AllowAnyHeader());
 });
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options => options.DescribeAllParametersInCamelCase());
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
