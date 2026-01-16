@@ -1,5 +1,10 @@
 ﻿namespace ShareXe.Base.Dtos
 {
+    /// <summary>
+    /// A generic response class for paginated data that extends the base Response class.
+    /// Provides pagination metadata, sorting information, and filtering details along with the response data.
+    /// </summary>
+    /// <typeparam name="T">The type of data contained in the paginated response.</typeparam>
     public class PagedResponse<T> : Response
     {
         public List<T> Data { get; set; } = [];
@@ -45,14 +50,18 @@
             return response;
         }
 
-
+        /// <summary>
+        /// Contains pagination, filtering, and ordering metadata for the response.
+        /// </summary>
         public class ResponseMetadata
         {
             public ResponsePagination Pagination { get; set; } = new ResponsePagination();
             public List<ResponseOrder> Orders { get; set; } = [];
             public Dictionary<string, object> Filters { get; set; } = [];
 
-
+            /// <summary>
+            /// Contains pagination-related information such as current page, page size, and total pages.
+            /// </summary>
             public class ResponsePagination
             {
                 public int CurrentPage { get; set; }

@@ -10,11 +10,12 @@ namespace ShareXe.Modules.Minio.Extensions
       var secretKey = Environment.GetEnvironmentVariable("MINIO_SECRET_KEY") ?? "minioadmin";
       var bucket = Environment.GetEnvironmentVariable("MINIO_BUCKET") ?? "sharexe_bucket";
       var port = Environment.GetEnvironmentVariable("MINIO_PORT") ?? "9000";
-      var endpoint = $"http://localhost:{port}";
+      var endpoint = $"localhost:{port}";
 
       services.AddMinio(configureClient => configureClient
           .WithEndpoint(endpoint)
           .WithCredentials(accessKey, secretKey)
+          .WithSSL(false)
           .Build());
 
       return services;

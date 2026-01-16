@@ -1,9 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShareXe.Modules.App.Services;
 
 namespace ShareXe.Modules.App.Controllers
 {
-  [Route("api/v1/")]
+  [Route("/api/v1/")]
   [ApiController]
   public class AppController(AppService appService) : ControllerBase
   {

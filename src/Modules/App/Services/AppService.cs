@@ -9,7 +9,7 @@ namespace ShareXe.Modules.App.Services
   {
     public string GetHealth()
     {
-      return "Healthy";
+      throw new AppException(ErrorCode.UnknownError, "Health check failed");
     }
   }
 }

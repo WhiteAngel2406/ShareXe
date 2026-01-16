@@ -1,53 +1,55 @@
-﻿using Microsoft.OpenApi.Models;
-using ShareXe.Base.Repositories.Implements;
-using ShareXe.Base.Repositories.Interfaces;
+﻿using System.Reflection;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 namespace ShareXe.Base.Extensions
 {
-    public static class ServiceExtension
+    public static class SwaggerExtension
     {
-        public static void AddSwaggerConfig(this IServiceCollection services)
+        public static IServiceCollection AddSwaggerConfig(this IServiceCollection services)
         {
-            // Cấu hình Swagger
-            services.AddSwaggerGen(c =>
+            services.AddSwaggerGen(options =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ShareXe API", Version = "v1" });
+                options.EnableAnnotations();
+                options.DescribeAllParametersInCamelCase();
 
-                // 1. Cấu hình "Cái khóa" (Bearer Token)
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "ShareXe API", Version = "v1" });
+
+                // Định nghĩa Bearer
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
-                    Description = "Nhập token vào ô bên dưới: Bearer {token}",
+                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
                     Name = "Authorization",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.ApiKey,
                     Scheme = "Bearer"
                 });
 
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                // Định nghĩa oauth2 cho Login Form
+                options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
                 {
+                    Type = SecuritySchemeType.OAuth2,
+                    Flows = new OpenApiOAuthFlows
                     {
-                        new OpenApiSecurityScheme
+                        Password = new OpenApiOAuthFlow
                         {
-                            Reference = new OpenApiReference
-                            {
-                                Type = ReferenceType.SecurityScheme,
-                                Id = "Bearer"
-                            },
-                            Scheme = "oauth2",
-                            Name = "Bearer",
-                            In = ParameterLocation.Header,
-                        },
-                        new List<string>()
+                            TokenUrl = new Uri("/api/v1/auth/login-swagger", UriKind.Relative),
+                            Scopes = new Dictionary<string, string>()
+                        }
                     }
                 });
 
-               
-                c.ExampleFilters();
-            });
+                options.OperationFilter<SecurityRequirementsOperationFilter>(false, "Bearer");
+                options.OperationFilter<SecurityRequirementsOperationFilter>(false, "oauth2");
 
-            // Đăng ký Example Provider từ thư viện Swashbuckle.AspNetCore.Filters
-            services.AddSwaggerExamplesFromAssemblyOf<Program>();
-            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+
+                if (File.Exists(xmlPath))
+                {
+                    options.IncludeXmlComments(xmlPath);
+                }
+            });
+            return services;
         }
     }
 }

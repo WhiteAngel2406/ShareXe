@@ -2,19 +2,23 @@
 
 namespace ShareXe.Base.Entities
 {
+    /// <summary>
+    /// Represents the base entity for all domain entities in the ShareXe application.
+    /// This abstract class provides common properties for entity identification, auditing, and soft deletion.
+    /// </summary>
     public abstract class BaseEntity
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; } = Guid.CreateVersion7();
 
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
 
-        public string? CreatedBy { get; set; }
+        public Guid? CreatedBy { get; set; }
 
-        public DateTime? LastModifiedAt { get; set; }
+        public DateTimeOffset? LastModifiedAt { get; set; }
 
-        public string? LastModifiedBy { get; set; }
+        public Guid? LastModifiedBy { get; set; }
 
-        public DateTime? DeletedAt { get; set; }
+        public DateTimeOffset? DeletedAt { get; set; }
     }
 }

@@ -3,6 +3,13 @@ using ShareXe.Base.Attributes;
 
 namespace ShareXe.Base.Dtos
 {
+  /// <summary>
+  /// Represents a paginated request with filtering and sorting capabilities.
+  /// </summary>
+  /// <remarks>
+  /// This class provides a standard contract for paginated API requests, allowing clients to specify
+  /// pagination parameters, sorting order, and custom filters through inherited or additional properties.
+  /// </remarks>
   public class PagedRequest
   {
     [Range(1, int.MaxValue, ErrorMessage = "Page must be greater than 0")]

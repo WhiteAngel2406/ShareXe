@@ -1,5 +1,9 @@
 namespace ShareXe.Base.Dtos
 {
+  /// <summary>
+  /// Represents a successful response with optional data payload.
+  /// </summary>
+  /// <typeparam name="T">The type of data contained in the response.</typeparam>
   public class SuccessResponse<T> : Response
   {
     public T? Data { get; set; }

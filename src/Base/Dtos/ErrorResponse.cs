@@ -3,6 +3,10 @@ using ShareXe.Base.Enums;
 
 namespace ShareXe.Base.Dtos
 {
+  /// <summary>
+  /// Represents an error response returned by the API.
+  /// Inherits from the base <see cref="Response"/> class and provides additional error details.
+  /// </summary>
   public class ErrorResponse : Response
   {
     public string Code { get; set; } = string.Empty;
