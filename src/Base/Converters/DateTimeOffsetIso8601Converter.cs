@@ -12,7 +12,6 @@ namespace ShareXe.Base.Converters
 
         public override void Write(Utf8JsonWriter writer, DateTimeOffset value, JsonSerializerOptions options)
         {
-            Console.WriteLine("Writing DateTimeOffset: " + value.ToString("yyyy-MM-ddTHH:mm:ssZ"));
             writer.WriteStringValue(value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ"));
         }
     }

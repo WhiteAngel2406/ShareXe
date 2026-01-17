@@ -3,8 +3,10 @@ using System.Text.Json.Serialization;
 
 using DotNetEnv;
 
+using ShareXe.Base.Configs;
 using ShareXe.Base.Converters;
 using ShareXe.Base.Extensions;
+using ShareXe.Base.Filters;
 using ShareXe.Base.Middleware;
 using ShareXe.Modules.Auth.Extensions;
 using ShareXe.Modules.Auth.Services;
@@ -18,13 +20,17 @@ builder.Services.AddDatabaseConfig();
 builder.Services.AddAutoInject();
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddControllers()
-    .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-        options.JsonSerializerOptions.Converters.Add(new DateTimeOffsetIso8601Converter());
-    });
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<PatchValidationFilter>();
+    options.ModelBinderProviders.Insert(0, new PatchRequestModelBinderProvider());
+})
+.AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    options.JsonSerializerOptions.Converters.Add(new DateTimeOffsetIso8601Converter());
+});
 builder.Services.AddAppHealthChecks();
 
 builder.Services.AddCustomValidationResponse();

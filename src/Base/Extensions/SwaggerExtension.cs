@@ -2,6 +2,8 @@
 
 using Microsoft.OpenApi.Models;
 
+using ShareXe.Base.Dtos;
+
 using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -17,6 +19,8 @@ namespace ShareXe.Base.Extensions
                 options.DescribeAllParametersInCamelCase();
 
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "ShareXe API", Version = "v1" });
+
+                options.OperationFilter<SwaggerPatchFilter>();
 
                 // Định nghĩa Bearer
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -72,6 +76,27 @@ namespace ShareXe.Base.Extensions
                         _ => 100
                     })
                     .ThenBy(t => t.Name)];
+            }
+        }
+
+        internal class SwaggerPatchFilter : IOperationFilter
+        {
+            public void Apply(OpenApiOperation operation, OperationFilterContext context)
+            {
+                var patchParameter = context.ApiDescription.ParameterDescriptions
+                    .FirstOrDefault(p => p.Type.IsGenericType && p.Type.GetGenericTypeDefinition() == typeof(PatchRequest<>));
+
+                if (patchParameter != null)
+                {
+                    var dtoType = patchParameter.Type.GenericTypeArguments[0];
+
+                    var schema = context.SchemaGenerator.GenerateSchema(dtoType, context.SchemaRepository);
+
+                    operation.RequestBody = new OpenApiRequestBody
+                    {
+                        Content = { ["application/json"] = new OpenApiMediaType { Schema = schema } }
+                    };
+                }
             }
         }
     }

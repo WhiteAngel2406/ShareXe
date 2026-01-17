@@ -9,7 +9,7 @@
     /// </remarks>
     public class EntityDto
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public DateTimeOffset CreatedAt { get; set; }
 

@@ -42,7 +42,7 @@ namespace ShareXe.Modules.Minio.Services
 
             return new MinioFileResponse
             {
-                FileName = originalFileName,
+                FileName = savedFileName,
                 Url = await GeneratePresignedUrlAsync(savedFileName)
             };
         }

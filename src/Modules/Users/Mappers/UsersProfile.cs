@@ -11,7 +11,8 @@ namespace ShareXe.Modules.Users.Mappers
         {
             CreateMap<User, UserProfileDto>()
               .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Account.Email))
-              .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Account.Role));
+              .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Account.Role))
+              .ForMember(dest => dest.Avatar, opt => opt.Ignore());
         }
     }
 }

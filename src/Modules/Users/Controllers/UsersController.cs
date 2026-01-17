@@ -28,5 +28,36 @@ namespace ShareXe.Modules.Users.Controllers
             var userProfileDto = await usersService.MapToUserProfileDtoAsync(user);
             return Ok(SuccessResponse<UserProfileDto>.WithData(userProfileDto, "Current user retrieved successfully."));
         }
+
+        [Authorize]
+        [HttpPatch("me")]
+        [SwaggerOperation(
+          Summary = "Update current user profile",
+          Description = "Updates the profile information of the currently authenticated user."
+        )]
+        [SwaggerResponse(200, "Returns the updated user's profile information.")]
+        [SwaggerResponse(400, "Bad Request - Invalid input data")]
+        public async Task<ActionResult<SuccessResponse<UserProfileDto>>> UpdateCurrentUserProfile([FromBody] PatchRequest<UpdateUserProfileDto> patchRequest)
+        {
+            var updatedUser = await usersService.UpdateCurrentUserProfileAsync(patchRequest);
+            var userProfileDto = await usersService.MapToUserProfileDtoAsync(updatedUser);
+            return Ok(SuccessResponse<UserProfileDto>.WithData(userProfileDto, "User profile updated successfully."));
+        }
+
+        [Authorize]
+        [HttpPatch("me/avatar")]
+        [Consumes("multipart/form-data")]
+        [SwaggerOperation(
+          Summary = "Update current user avatar",
+          Description = "Updates the avatar of the currently authenticated user."
+        )]
+        [SwaggerResponse(200, "Returns the updated user's profile information with new avatar.")]
+        [SwaggerResponse(400, "Bad Request - Invalid input data")]
+        public async Task<ActionResult<SuccessResponse<UserProfileDto>>> UpdateCurrentUserAvatar([FromForm] UpdateAvatarDto updateAvatarDto)
+        {
+            var updatedUser = await usersService.UpdateCurrentUserAvatarAsync(updateAvatarDto);
+            var userProfileDto = await usersService.MapToUserProfileDtoAsync(updatedUser);
+            return Ok(SuccessResponse<UserProfileDto>.WithData(userProfileDto, "User avatar updated successfully."));
+        }
     }
 }

@@ -1,8 +1,10 @@
 using AutoMapper;
 
 using ShareXe.Base.Attributes;
+using ShareXe.Base.Dtos;
 using ShareXe.Base.Enums;
 using ShareXe.Base.Exceptions;
+using ShareXe.Base.Extensions;
 using ShareXe.Modules.Auth;
 using ShareXe.Modules.Minio.Dtos;
 using ShareXe.Modules.Minio.Services;
@@ -21,6 +23,29 @@ namespace ShareXe.Modules.Users.Services
 
             return await usersRepository.GetOneAsync(u => u.Account.FirebaseUid == firebaseUid, "Account")
               ?? throw new AppException(ErrorCode.UserNotFound);
+        }
+
+        public async Task<User> UpdateCurrentUserProfileAsync(PatchRequest<UpdateUserProfileDto> updateUserProfileDto)
+        {
+            var user = await GetCurrentUserAsync();
+
+            user.ApplyPatch(updateUserProfileDto);
+            await usersRepository.UpdateAsync(user);
+
+            return user;
+        }
+
+        public async Task<User> UpdateCurrentUserAvatarAsync(UpdateAvatarDto updateAvatarDto)
+        {
+            var user = await GetCurrentUserAsync();
+            var folder = $"avatars/{user.Id}";
+
+            var response = await minioService.UploadFileAsync(updateAvatarDto.Avatar, folder);
+
+            user.Avatar = response.FileName;
+            await usersRepository.UpdateAsync(user);
+
+            return user;
         }
 
         public async Task<UserProfileDto> MapToUserProfileDtoAsync(User user)

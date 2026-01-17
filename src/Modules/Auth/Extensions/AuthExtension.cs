@@ -4,28 +4,28 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 
+using ShareXe.Base.Dtos;
+using ShareXe.Base.Enums;
+
 namespace ShareXe.Modules.Auth.Extensions
 {
     public static class AuthExtension
     {
         public static IServiceCollection AddFirebaseAuthentication(this IServiceCollection services)
         {
-            var client = new HttpClient();
+            using var client = new HttpClient();
             var keys = client
-                .GetStringAsync(
-                    "https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system.gserviceaccount.com")
-                .Result;
+                .GetStringAsync("https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system.gserviceaccount.com")
+                .GetAwaiter().GetResult();
             var originalKeys = new JsonWebKeySet(keys).GetSigningKeys();
             var additionalkeys = client
-                .GetStringAsync(
-                    "https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com")
-                .Result;
+                .GetStringAsync("https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com")
+                .GetAwaiter().GetResult();
             var morekeys = new JsonWebKeySet(additionalkeys).GetSigningKeys();
             var totalkeys = originalKeys.Concat(morekeys);
 
             var projectId = Environment.GetEnvironmentVariable("FIREBASE_PROJECT_ID");
             var authority = $"https://securetoken.google.com/{projectId}";
-            client.Dispose();
 
             JsonWebTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
@@ -46,23 +46,27 @@ namespace ShareXe.Modules.Auth.Extensions
                   };
                   options.Events = new JwtBearerEvents
                   {
-                      OnAuthenticationFailed = context =>
-                {
-                    Console.WriteLine("Authentication failed: " + context.Exception.Message);
-                    return Task.CompletedTask;
-                },
                       OnChallenge = async context =>
-                {
-                    context.HandleResponse();
-                    context.Response.StatusCode = 401;
-                    context.Response.ContentType = "application/json";
-                    var result = JsonSerializer.Serialize(new { error = "You are not authorized" });
-                    await context.Response.WriteAsync(result);
-                }
+                      {
+                          context.HandleResponse();
+
+                          context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                          context.Response.ContentType = "application/json";
+
+                          var errorResponse = ErrorResponse.FromErrorCode(ErrorCode.Unauthorized);
+
+                          var result = JsonSerializer.Serialize(errorResponse, serializerOptions);
+                          await context.Response.WriteAsync(result);
+                      }
                   };
               });
 
             return services;
         }
+
+        private static JsonSerializerOptions serializerOptions = new()
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        };
     }
 }
