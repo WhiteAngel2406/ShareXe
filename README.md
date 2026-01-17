@@ -110,7 +110,7 @@ dotnet tool restore
 4. Apply Database Migrations:
 
 ```bash
-dotnet ef database update --project src/Infrastructure/Database/Database.csproj
+dotnet ef database update
 ```
 
 5. Run the Backend:
