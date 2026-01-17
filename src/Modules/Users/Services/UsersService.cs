@@ -1,4 +1,5 @@
 using AutoMapper;
+
 using ShareXe.Base.Attributes;
 using ShareXe.Base.Enums;
 using ShareXe.Base.Exceptions;
@@ -11,31 +12,31 @@ using ShareXe.Modules.Users.Repositories;
 
 namespace ShareXe.Modules.Users.Services
 {
-  [Injectable]
-  public class UsersService(UsersRepository usersRepository, MinioService minioService, UserContext userContext, IMapper mapper)
-  {
-    public async Task<User> GetCurrentUserAsync()
+    [Injectable]
+    public class UsersService(UsersRepository usersRepository, MinioService minioService, UserContext userContext, IMapper mapper)
     {
-      var firebaseUid = userContext.FirebaseUid;
-
-      return await usersRepository.GetOneAsync(u => u.Account.FirebaseUid == firebaseUid, "Account")
-        ?? throw new AppException(ErrorCode.UserNotFound);
-    }
-
-    public async Task<UserProfileDto> MapToUserProfileDtoAsync(User user)
-    {
-      var userProfileDto = mapper.Map<UserProfileDto>(user);
-
-      if (!string.IsNullOrEmpty(user.Avatar))
-      {
-        userProfileDto.Avatar = new MinioFileResponse
+        public async Task<User> GetCurrentUserAsync()
         {
-          FileName = user.Avatar,
-          Url = await minioService.GeneratePresignedUrlAsync(user.Avatar)
-        };
-      }
+            var firebaseUid = userContext.FirebaseUid;
 
-      return userProfileDto;
+            return await usersRepository.GetOneAsync(u => u.Account.FirebaseUid == firebaseUid, "Account")
+              ?? throw new AppException(ErrorCode.UserNotFound);
+        }
+
+        public async Task<UserProfileDto> MapToUserProfileDtoAsync(User user)
+        {
+            var userProfileDto = mapper.Map<UserProfileDto>(user);
+
+            if (!string.IsNullOrEmpty(user.Avatar))
+            {
+                userProfileDto.Avatar = new MinioFileResponse
+                {
+                    FileName = user.Avatar,
+                    Url = await minioService.GeneratePresignedUrlAsync(user.Avatar)
+                };
+            }
+
+            return userProfileDto;
+        }
     }
-  }
 }

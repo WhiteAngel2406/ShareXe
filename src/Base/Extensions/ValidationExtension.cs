@@ -1,31 +1,33 @@
 using System.Text.Json;
+
 using Microsoft.AspNetCore.Mvc;
+
 using ShareXe.Base.Dtos;
 
 namespace ShareXe.Base.Extensions
 {
-  public static class ValidationExtension
-  {
-    public static IServiceCollection AddCustomValidationResponse(this IServiceCollection services)
+    public static class ValidationExtension
     {
-      services.Configure<ApiBehaviorOptions>(options =>
-        options.InvalidModelStateResponseFactory = actionContext =>
+        public static IServiceCollection AddCustomValidationResponse(this IServiceCollection services)
         {
-          var errors = actionContext.ModelState
-              .Where(e => e.Value?.Errors.Count > 0)
-              .SelectMany(kvp => kvp.Value!.Errors.Select(e => new ErrorResponse.ValidationError
+            services.Configure<ApiBehaviorOptions>(options =>
+              options.InvalidModelStateResponseFactory = actionContext =>
               {
-                Field = JsonNamingPolicy.CamelCase.ConvertName(kvp.Key),
-                Message = e.ErrorMessage
-              }))
-              .ToList();
+                  var errors = actionContext.ModelState
+                .Where(e => e.Value?.Errors.Count > 0)
+                .SelectMany(kvp => kvp.Value!.Errors.Select(e => new ErrorResponse.ValidationError
+                {
+                    Field = JsonNamingPolicy.CamelCase.ConvertName(kvp.Key),
+                    Message = e.ErrorMessage
+                }))
+                .ToList();
 
-          var response = ErrorResponse.WithValidationErrors(errors);
-          return new BadRequestObjectResult(response);
+                  var response = ErrorResponse.WithValidationErrors(errors);
+                  return new BadRequestObjectResult(response);
+              }
+            );
+
+            return services;
         }
-      );
-
-      return services;
     }
-  }
 }

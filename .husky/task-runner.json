@@ -1,0 +1,26 @@
+{
+  "$schema": "https://alirezanet.github.io/Husky.Net/schema.json",
+  "tasks": [
+    {
+      "name": "Auto-Format Whitespace",
+      "group": "pre-commit",
+      "command": "dotnet",
+      "args": ["format", "whitespace", "ShareXe.sln", "--include", "${staged}"],
+      "include": ["**/*.cs"]
+    },
+    {
+      "name": "Verify Logic & Quality",
+      "group": "pre-commit",
+      "command": "dotnet",
+      "args": [
+        "format",
+        "analyzers",
+        "ShareXe.sln",
+        "--verify-no-changes",
+        "--include",
+        "${staged}"
+      ],
+      "include": ["**/*.cs"]
+    }
+  ]
+}

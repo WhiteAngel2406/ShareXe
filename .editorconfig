@@ -1,0 +1,52 @@
+root = true
+
+[*.cs]
+# --- 1. Quy tắc định dạng Code (Formatting) ---
+indent_style = space
+indent_size = 4
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+dotnet_diagnostic.IDE0130.severity = none
+
+# --- 2. Quy tắc loại bỏ tài nguyên thừa (Dead Code) ---
+# IDE0005: Remove unnecessary usings -> Đặt là Error
+dotnet_diagnostic.IDE0005.severity = error
+
+# IDE0051: Remove unused private members -> Đặt là Error
+dotnet_diagnostic.IDE0051.severity = error
+
+# IDE0059: Unnecessary assignment of a value -> Đặt là Error
+dotnet_diagnostic.IDE0059.severity = error
+
+# IDE0060: Remove unused parameter -> Đặt là Warning (đôi khi override cần giữ param)
+dotnet_diagnostic.IDE0060.severity = warning
+
+# --- 3. Quy tắc Hiệu năng & Tài nguyên (Performance) ---
+# CA1822: Mark members as static -> Tăng tốc độ gọi hàm
+dotnet_diagnostic.CA1822.severity = warning
+
+# CA1827: Count() vs Any() -> Tránh duyệt toàn bộ list trong EF Core
+dotnet_diagnostic.CA1827.severity = error
+
+# CA2000: Dispose objects before losing scope -> Chống rò rỉ bộ nhớ (Memory Leak)
+dotnet_diagnostic.CA2000.severity = error
+
+# CA1806: Do not ignore method results -> Tránh lỗi logic ngớ ngẩn
+dotnet_diagnostic.CA1806.severity = error
+
+# --- 4. Quy tắc Bất đồng bộ (Async/Await) ---
+# VSTHRD103: Use Async methods in Async contexts -> Chống Deadlock (Treo server)
+dotnet_diagnostic.VSTHRD103.severity = error
+
+# CA2016: Forward CancellationToken to methods -> Tối ưu hóa việc hủy request
+dotnet_diagnostic.CA2016.severity = warning
+
+# --- 5. Quy tắc viết Code gọn (Style) ---
+# Use 'var' instead of explicit type (nếu kiểu dữ liệu đã rõ ràng)
+dotnet_style_var_for_built_in_types = true:suggestion
+dotnet_style_var_when_type_is_apparent = true:suggestion
+
+# Organize usings: System usings lên đầu
+dotnet_separate_import_directive_groups = true
+dotnet_sort_system_usings_first = true

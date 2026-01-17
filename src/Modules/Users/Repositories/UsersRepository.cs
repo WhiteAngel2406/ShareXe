@@ -5,8 +5,8 @@ using ShareXe.Modules.Users.Entities;
 
 namespace ShareXe.Modules.Users.Repositories
 {
-  [Injectable]
-  public class UsersRepository(ShareXeDbContext context) : BaseRepository<User>(context)
-  {
-  }
+    [Injectable]
+    public class UsersRepository(ShareXeDbContext context) : BaseRepository<User>(context)
+    {
+    }
 }

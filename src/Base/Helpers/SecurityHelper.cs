@@ -3,7 +3,7 @@ using System.Text;
 
 namespace ShareXe.Base.Helpers
 {
-    public static  class SecurityHelper
+    public static class SecurityHelper
     {
         // 1. Tạo OTP 
         public static string GenerateOtp(int length = 6)
@@ -18,7 +18,7 @@ namespace ShareXe.Base.Helpers
         }
 
         // 2. Hash 
-        public static string Hash(string text )
+        public static string Hash(string text)
         {
             using (var sha256 = SHA256.Create())
             {

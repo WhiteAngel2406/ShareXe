@@ -1,12 +1,14 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
 using DotNetEnv;
+
 using ShareXe.Base.Converters;
 using ShareXe.Base.Extensions;
 using ShareXe.Base.Middleware;
 using ShareXe.Modules.Auth.Extensions;
 using ShareXe.Modules.Auth.Services;
 using ShareXe.Modules.Minio.Extensions;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 Env.TraversePath().Load();
 

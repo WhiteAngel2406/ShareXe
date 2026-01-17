@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
+﻿using System.Net;
+
+using Microsoft.AspNetCore.Diagnostics;
+
 using ShareXe.Base.Dtos;
 using ShareXe.Base.Enums;
 using ShareXe.Base.Exceptions;
-using System.Net;
 
 namespace ShareXe.Base.Middleware
 {

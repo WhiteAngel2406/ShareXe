@@ -1,50 +1,51 @@
 using System.Text.Json.Serialization;
+
 using ShareXe.Base.Enums;
 
 namespace ShareXe.Base.Dtos
 {
-  /// <summary>
-  /// Represents an error response returned by the API.
-  /// Inherits from the base <see cref="Response"/> class and provides additional error details.
-  /// </summary>
-  public class ErrorResponse : Response
-  {
-    public string Code { get; set; } = string.Empty;
-
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<ValidationError>? Errors { get; set; }
-
-    protected ErrorResponse()
+    /// <summary>
+    /// Represents an error response returned by the API.
+    /// Inherits from the base <see cref="Response"/> class and provides additional error details.
+    /// </summary>
+    public class ErrorResponse : Response
     {
-      Success = false;
-    }
+        public string Code { get; set; } = string.Empty;
 
-    public static ErrorResponse FromErrorCode(ErrorCode errorCode, string? customMessage = null)
-    {
-      return new ErrorResponse
-      {
-        Success = false,
-        Message = customMessage ?? errorCode.Message,
-        Code = errorCode.Code,
-      };
-    }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public List<ValidationError>? Errors { get; set; }
 
-    public static ErrorResponse WithValidationErrors(List<ValidationError> validationErrors, string? customMessage = null)
-    {
-      return new ErrorResponse
-      {
-        Success = false,
-        Message = customMessage ?? ErrorCode.ValidationError.Message,
-        Code = ErrorCode.ValidationError.Code,
-        Errors = validationErrors
-      };
-    }
+        protected ErrorResponse()
+        {
+            Success = false;
+        }
 
-    public class ValidationError
-    {
-      public string Field { get; set; } = string.Empty;
-      public string Message { get; set; } = string.Empty;
+        public static ErrorResponse FromErrorCode(ErrorCode errorCode, string? customMessage = null)
+        {
+            return new ErrorResponse
+            {
+                Success = false,
+                Message = customMessage ?? errorCode.Message,
+                Code = errorCode.Code,
+            };
+        }
+
+        public static ErrorResponse WithValidationErrors(List<ValidationError> validationErrors, string? customMessage = null)
+        {
+            return new ErrorResponse
+            {
+                Success = false,
+                Message = customMessage ?? ErrorCode.ValidationError.Message,
+                Code = ErrorCode.ValidationError.Code,
+                Errors = validationErrors
+            };
+        }
+
+        public class ValidationError
+        {
+            public string Field { get; set; } = string.Empty;
+            public string Message { get; set; } = string.Empty;
+        }
     }
-  }
 
 }
