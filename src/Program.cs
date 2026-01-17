@@ -23,6 +23,7 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
         options.JsonSerializerOptions.Converters.Add(new DateTimeOffsetIso8601Converter());
     });
+builder.Services.AddAppHealthChecks();
 
 builder.Services.AddCustomValidationResponse();
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
@@ -39,7 +40,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddFirebaseAuthentication();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerConfig(); // Sẽ nhận diện được [Authorize] từ Firebase
+builder.Services.AddSwaggerConfig();
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
@@ -77,6 +78,7 @@ app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapAppHealthChecks();
 app.MapControllers();
 
 app.Run();

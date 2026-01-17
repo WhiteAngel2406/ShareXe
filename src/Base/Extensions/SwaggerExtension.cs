@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
+using Swashbuckle.AspNetCore.SwaggerGen;
+
 namespace ShareXe.Base.Extensions
 {
     public static class SwaggerExtension
@@ -41,6 +43,8 @@ namespace ShareXe.Base.Extensions
                 options.OperationFilter<SecurityRequirementsOperationFilter>(false, "Bearer");
                 options.OperationFilter<SecurityRequirementsOperationFilter>(false, "oauth2");
 
+                options.AddHeathCheckSwaggerEndpoint();
+
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 
@@ -48,8 +52,25 @@ namespace ShareXe.Base.Extensions
                 {
                     options.IncludeXmlComments(xmlPath);
                 }
+
+                options.DocumentFilter<TagOrderFilter>();
             });
             return services;
+        }
+
+        internal class TagOrderFilter : IDocumentFilter
+        {
+            public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
+            {
+                swaggerDoc.Tags = [.. swaggerDoc.Tags
+                    .OrderBy(t => t.Name switch
+                    {
+                        "Infrastructure" => 1,
+                        "Auth" => 2,
+                        _ => 100
+                    })
+                    .ThenBy(t => t.Name)];
+            }
         }
     }
 }

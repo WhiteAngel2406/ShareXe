@@ -1,7 +1,9 @@
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 using Minio;
+using Minio.DataModel;
 using Minio.DataModel.Args;
 using Minio.Exceptions;
 using ShareXe.Base.Attributes;
@@ -10,7 +12,7 @@ using ShareXe.Modules.Minio.Dtos;
 namespace ShareXe.Modules.Minio.Services
 {
   [Injectable]
-  public class MinioService(IMinioClient minioClient, IConfiguration config, ILogger<MinioService> logger)
+  public partial class MinioService(IMinioClient minioClient, IConfiguration config, ILogger<MinioService> logger)
   {
     private readonly string _bucket = config["MINIO_BUCKET"] ?? "sharexe_bucket";
     private readonly string _publicEndpoint = config["MINIO_PUBLIC_ENDPOINT"] ?? "";
@@ -107,10 +109,22 @@ namespace ShareXe.Modules.Minio.Services
 
       var sanitized = sb.ToString().Normalize(NormalizationForm.FormC);
 
-      sanitized = Regex.Replace(sanitized, @"\s+", "_");
-      sanitized = Regex.Replace(sanitized, @"[^a-zA-Z0-9_\-\.]+", "");
+      sanitized = WhitespaceRegex().Replace(sanitized, "_");
+      sanitized = NonAlphanumericRegex().Replace(sanitized, "");
 
       return string.IsNullOrEmpty(sanitized) ? "untitled" : sanitized;
+    }
+
+    [GeneratedRegex(@"\s+")]
+    private static partial Regex WhitespaceRegex();
+
+    [GeneratedRegex(@"[^a-zA-Z0-9_\-\.]+")]
+    private static partial Regex NonAlphanumericRegex();
+
+    public async Task<Collection<Bucket>> GetBucketsAsync()
+    {
+      var result = await minioClient.ListBucketsAsync();
+      return result.Buckets;
     }
   }
 }
