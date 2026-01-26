@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 using ShareXe.Base.Attributes;
 
-namespace ShareXe.Models
+namespace ShareXe.DAL
 {
     [Injectable]
     public class ShareXeDbContext(DbContextOptions<ShareXeDbContext> options) : DbContext(options)

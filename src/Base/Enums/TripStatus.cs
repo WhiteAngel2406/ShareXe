@@ -2,10 +2,9 @@
 {
     public enum TripStatus
     {
-        Pending = 0,
-        Confirmed = 1,
-        Ongoing = 2,
-        Completed = 3,
-        Cancelled = 4
+        Scheduled = 0,  
+        Active = 1,     
+        Completed = 2,  
+        Cancelled = 3
     }
 }
