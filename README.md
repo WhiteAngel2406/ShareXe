@@ -32,7 +32,7 @@ This repository contains the **RESTful API** built with **ASP.NET Core**, follow
 
 | Component            | Technology              | Description                              |
 | :------------------- | :---------------------- | :--------------------------------------- |
-| **Framework**        | .NET 8 Web API          | Core backend framework.                  |
+| **Framework**        | .NET 9 Web API          | Core backend framework.                  |
 | **Database**         | SQL Server 2022         | Relational DB with Spatial Data support. |
 | **Caching**          | Redis                   | Caching & Pub/Sub for SignalR.           |
 | **Real-time**        | SignalR Core            | WebSocket management.                    |
@@ -110,7 +110,7 @@ dotnet tool restore
 4. Apply Database Migrations:
 
 ```bash
-dotnet ef database update --project src/Infrastructure/Database/Database.csproj
+dotnet ef database update
 ```
 
 5. Run the Backend:
