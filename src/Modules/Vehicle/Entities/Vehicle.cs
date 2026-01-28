@@ -1,11 +1,12 @@
 ﻿using ShareXe.Base.Attributes;
+using ShareXe.Base.Entities;
 using ShareXe.Base.Enums;
 
 using System.ComponentModel.DataAnnotations;
 
 namespace ShareXe.src.Modules.Vehicle.Entities
 {
-    public class Vehicle
+    public class Vehicle : BaseEntity
     {
         [Required]
         [Unique]

@@ -1,4 +1,5 @@
 ﻿using ShareXe.Base.Attributes;
+using ShareXe.Base.Entities;
 using ShareXe.Base.Enums;
 using ShareXe.Modules.Users.Entities;
 
@@ -6,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ShareXe.src.Modules.DriverProfile.Entities
 {
-    public class DriverProfile
+    public class DriverProfile : BaseEntity
     {
         [Required]
         [Unique]

@@ -1,8 +1,10 @@
-﻿using ShareXe.src.Base.Enums;
+﻿using ShareXe.Base.Entities;
+using ShareXe.src.Base.Enums;
+
 
 namespace ShareXe.src.Modules.Booking.Entities
 {
-    public class Booking
+    public class Booking : BaseEntity
     {
         public Guid TripId { get; set; }
         public Guid PassengerId { get; set; }
@@ -10,6 +12,6 @@ namespace ShareXe.src.Modules.Booking.Entities
         public PaymentMethod PaymentMethod { get; set; }
         public decimal TotalPrice { get; set; }
         public BookingStatus Status { get; set; }
-        public ICollection<BookingSeat> BookingSeats { get; set; }
+       
     }
 }

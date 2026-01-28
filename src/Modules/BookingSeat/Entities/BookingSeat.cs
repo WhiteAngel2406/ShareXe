@@ -1,6 +1,8 @@
-﻿namespace ShareXe.src.Modules.BookingSeat.Entities
+﻿using ShareXe.Base.Entities;
+
+namespace ShareXe.src.Modules.BookingSeat.Entities
 {
-    public class BookingSeat
+    public class BookingSeat : BaseEntity
     {
         public Guid BookingId { get; set; }
         public String SeatCode { get; set; }
