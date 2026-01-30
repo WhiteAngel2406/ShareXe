@@ -12,6 +12,6 @@ namespace ShareXe.src.Modules.Booking.Entities
         public PaymentMethod PaymentMethod { get; set; }
         public decimal TotalPrice { get; set; }
         public BookingStatus Status { get; set; }
-       
+        public ICollection<Booking> Bookings { get; set;} = new List<Booking>();
     }
 }
