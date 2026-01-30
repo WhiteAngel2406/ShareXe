@@ -3,7 +3,7 @@
 using Microsoft.EntityFrameworkCore;
 
 using ShareXe.Base.Entities;
-using ShareXe.Models;
+using ShareXe.DAL;
 
 namespace ShareXe.Base.Repositories
 {

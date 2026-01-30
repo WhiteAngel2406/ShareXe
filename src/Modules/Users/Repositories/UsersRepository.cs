@@ -1,6 +1,6 @@
 using ShareXe.Base.Attributes;
 using ShareXe.Base.Repositories;
-using ShareXe.Models;
+using ShareXe.DAL;
 using ShareXe.Modules.Users.Entities;
 
 namespace ShareXe.Modules.Users.Repositories

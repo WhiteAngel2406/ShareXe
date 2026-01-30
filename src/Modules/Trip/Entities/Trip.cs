@@ -13,6 +13,6 @@ namespace ShareXe.src.Modules.Trip.Entities
         public DateTimeOffset DepartureTime { get; set; }
         public DateTimeOffset EstimatedArrivalTime { get; set; }
         public decimal PricePerSeat { get; set; }
-        
+        public ICollection<Booking> Bookings { get; set; } = null!;
     }
 }

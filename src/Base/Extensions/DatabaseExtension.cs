@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-using ShareXe.Models;
+using ShareXe.DAL;
 
 namespace ShareXe.Base.Extensions
 {
