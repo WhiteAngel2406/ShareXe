@@ -1,5 +1,6 @@
 ﻿using ShareXe.Base.Entities;
-using ShareXe.Base.Enums;
+using ShareXe.src.Base.Enums;
+using ShareXe.src.Modules.VehicleTypes.Entities;
 
 namespace ShareXe.src.Modules.Trip.Entities
 {

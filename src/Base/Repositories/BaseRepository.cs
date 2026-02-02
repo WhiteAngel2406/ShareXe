@@ -49,7 +49,7 @@ namespace ShareXe.Base.Repositories
             return await dbSet.CountAsync();
         }
 
-        public async Task<T?> GetByIdAsync(int id) => await dbSet.FindAsync(id);
+        public async Task<T?> GetByIdAsync(Guid id) => await dbSet.FindAsync(id);
 
         public async Task<T?> GetOneAsync(Expression<Func<T, bool>> filter, string includeProperties = "")
         {

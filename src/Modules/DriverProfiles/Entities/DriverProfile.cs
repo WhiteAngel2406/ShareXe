@@ -1,7 +1,7 @@
 ﻿using ShareXe.Base.Attributes;
 using ShareXe.Base.Entities;
-using ShareXe.Base.Enums;
 using ShareXe.Modules.Users.Entities;
+using ShareXe.src.Modules.VehicleTypes.Entities;
 
 using System.ComponentModel.DataAnnotations;
 

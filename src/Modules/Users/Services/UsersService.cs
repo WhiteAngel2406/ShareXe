@@ -2,7 +2,6 @@ using AutoMapper;
 
 using ShareXe.Base.Attributes;
 using ShareXe.Base.Dtos;
-using ShareXe.Base.Enums;
 using ShareXe.Base.Exceptions;
 using ShareXe.Base.Extensions;
 using ShareXe.Modules.Auth;
@@ -11,6 +10,7 @@ using ShareXe.Modules.Minio.Services;
 using ShareXe.Modules.Users.Dtos;
 using ShareXe.Modules.Users.Entities;
 using ShareXe.Modules.Users.Repositories;
+using ShareXe.src.Base.Enums;
 
 namespace ShareXe.Modules.Users.Services
 {

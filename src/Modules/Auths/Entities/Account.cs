@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 using ShareXe.Base.Attributes;
 using ShareXe.Base.Entities;
-using ShareXe.Base.Enums;
 using ShareXe.Modules.Users.Entities;
+using ShareXe.src.Base.Enums;
 
 namespace ShareXe.Modules.Auth.Entities
 {

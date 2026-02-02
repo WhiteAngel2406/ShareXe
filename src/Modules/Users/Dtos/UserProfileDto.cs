@@ -1,6 +1,6 @@
 using ShareXe.Base.Dtos;
-using ShareXe.Base.Enums;
 using ShareXe.Modules.Minio.Dtos;
+using ShareXe.src.Base.Enums;
 
 namespace ShareXe.Modules.Users.Dtos
 {

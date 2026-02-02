@@ -1,6 +1,6 @@
-using System.Text.Json.Serialization;
+using ShareXe.src.Base.Enums;
 
-using ShareXe.Base.Enums;
+using System.Text.Json.Serialization;
 
 namespace ShareXe.Base.Dtos
 {

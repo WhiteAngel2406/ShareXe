@@ -1,7 +1,7 @@
 using AutoMapper;
 
 using ShareXe.Base.Attributes;
-using ShareXe.Base.Enums;
+using ShareXe.src.Base.Enums;
 using ShareXe.Base.Exceptions;
 using ShareXe.Modules.Auth.Entities;
 using ShareXe.Modules.Auth.Repositories;

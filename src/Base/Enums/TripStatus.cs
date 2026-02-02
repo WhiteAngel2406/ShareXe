@@ -1,4 +1,4 @@
-﻿namespace ShareXe.Base.Enums
+﻿namespace ShareXe.src.Base.Enums
 {
     public enum TripStatus
     {
