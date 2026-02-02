@@ -1,9 +1,11 @@
-﻿using ShareXe.Base.Entities;
+﻿using ShareXe.Base.Attributes;
+using ShareXe.Base.Entities;
 using ShareXe.src.Base.Enums;
 using ShareXe.src.Modules.VehicleTypes.Entities;
 
-namespace ShareXe.src.Modules.Trip.Entities
+namespace ShareXe.src.Modules.Trips.Entities
 {
+    [Entity("trips")]
     public class Trip : BaseEntity
     {
         public Guid DriverId { get; set; }

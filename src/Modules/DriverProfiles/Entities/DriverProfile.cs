@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ShareXe.src.Modules.DriverProfile.Entities
 {
+    [Entity("driver_profile")]
     public class DriverProfile : BaseEntity
     {
         [Required]
