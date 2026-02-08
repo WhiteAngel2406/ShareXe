@@ -5,7 +5,7 @@ using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 
 using ShareXe.Base.Dtos;
-using ShareXe.src.Base.Enums;
+using ShareXe.Base.Enums;
 
 namespace ShareXe.Modules.Auth.Extensions
 {

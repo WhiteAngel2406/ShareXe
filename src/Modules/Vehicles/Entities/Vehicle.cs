@@ -1,24 +1,36 @@
 ﻿using ShareXe.Base.Attributes;
 using ShareXe.Base.Entities;
-using ShareXe.src.Modules.VehicleTypes.Entities;
+using ShareXe.Modules.DriverProfiles.Entities;
+using ShareXe.Modules.VehicleTypes.Entities;
 
 using System.ComponentModel.DataAnnotations;
 
-namespace ShareXe.src.Modules.Vehicle.Entities
+namespace ShareXe.Modules.Vehicles.Entities
 {
     [Entity("vehicles")]
     public class Vehicle : BaseEntity
     {
         [Required]
-        [Unique]
         public Guid DriverId { get; set; }
+        public DriverProfile Driver { get; set; } = null!;
+
         [Required]
-        public VehicleType Type { get; set; }
+        public Guid TypeId { get; set; }
+
+        public VehicleType Type { get; set; } = null!;
+
         [Required]
-        public String PlateNumber { get; set; }
-        public String Model { get; set; }
-        public String Color { get; set; }
-        public String ImageURL { get; set; }
+        public string PlateNumber { get; set; } = null!;
+
+        [Required]
+        public string Model { get; set; } = null!;
+
+        [Required]
+        public string Color { get; set; } = null!;
+
+        [Required]
+        public string ImageURL { get; set; } = null!;
+
         [Required]
         public bool IsActive { get; set; }
     }

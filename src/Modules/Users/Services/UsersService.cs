@@ -10,7 +10,7 @@ using ShareXe.Modules.Minio.Services;
 using ShareXe.Modules.Users.Dtos;
 using ShareXe.Modules.Users.Entities;
 using ShareXe.Modules.Users.Repositories;
-using ShareXe.src.Base.Enums;
+using ShareXe.Base.Enums;
 
 namespace ShareXe.Modules.Users.Services
 {

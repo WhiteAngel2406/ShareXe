@@ -1,12 +1,12 @@
 ﻿
-namespace ShareXe.src.Base.Enums
+namespace ShareXe.Base.Enums
 {
     public enum TransactionStatus
     {
-        Pending =0,
+        Pending = 0,
         Complete = 1,
-        Failed =2,
-        Cancelled =3,
-        Refunded =4
+        Failed = 2,
+        Cancelled = 3,
+        Refunded = 4
     }
 }

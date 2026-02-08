@@ -1,6 +1,6 @@
 using ShareXe.Base.Dtos;
 using ShareXe.Modules.Minio.Dtos;
-using ShareXe.src.Base.Enums;
+using ShareXe.Base.Enums;
 
 namespace ShareXe.Modules.Users.Dtos
 {
@@ -11,6 +11,10 @@ namespace ShareXe.Modules.Users.Dtos
         public Role Role { get; set; }
 
         public string? FullName { get; set; }
+
+        public string? Gender { get; set; }
+
+        public DateTime? DateOfBirth { get; set; }
 
         public MinioFileResponse? Avatar { get; set; }
     }

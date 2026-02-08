@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace ShareXe.src.Base.Enums
+namespace ShareXe.Base.Enums
 {
     public class ErrorCode
     {

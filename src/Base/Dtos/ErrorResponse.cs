@@ -1,4 +1,4 @@
-using ShareXe.src.Base.Enums;
+using ShareXe.Base.Enums;
 
 using System.Text.Json.Serialization;
 

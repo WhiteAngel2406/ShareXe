@@ -1,17 +1,17 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 using ShareXe.Base.Attributes;
 using ShareXe.Base.Entities;
 using ShareXe.Modules.Users.Entities;
-using ShareXe.src.Base.Enums;
+using ShareXe.Base.Enums;
 
 namespace ShareXe.Modules.Auth.Entities
 {
     [Entity("accounts")]
     public class Account : BaseEntity
     {
-        public required string FirebaseUid { get; set; }
+        [Required]
+        public string FirebaseUid { get; set; } = null!;
 
         [MaxLength(255)]
         public string? Email { get; set; }
@@ -22,7 +22,7 @@ namespace ShareXe.Modules.Auth.Entities
 
         public bool IsActive { get; set; } = true;
 
-        [InverseProperty(nameof(User.Account))]
-        public virtual User? User { get; set; }
+        public Guid? UserId { get; set; }
+        public User? User { get; set; }
     }
 }

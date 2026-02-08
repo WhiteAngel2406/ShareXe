@@ -6,7 +6,8 @@
       "group": "pre-commit",
       "command": "dotnet",
       "args": ["format", "whitespace", "ShareXe.sln", "--include", "${staged}"],
-      "include": ["**/*.cs"]
+      "include": ["**/*.cs"],
+      "exclude": ["**/Migrations/**"]
     },
     {
       "name": "Verify Logic & Quality",
@@ -20,7 +21,8 @@
         "--include",
         "${staged}"
       ],
-      "include": ["**/*.cs"]
+      "include": ["**/*.cs"],
+      "exclude": ["**/Migrations/**"]
     }
   ]
 }

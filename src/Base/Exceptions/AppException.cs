@@ -1,4 +1,4 @@
-﻿using ShareXe.src.Base.Enums;
+﻿using ShareXe.Base.Enums;
 namespace ShareXe.Base.Exceptions
 {
     /// <summary>

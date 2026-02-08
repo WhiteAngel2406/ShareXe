@@ -1,9 +1,8 @@
-﻿namespace ShareXe.src.Base.Enums
+﻿namespace ShareXe.Base.Enums
 {
     public enum PaymentMethod
     {
-        Cash,      
-        Transfer,   
-        Unknown    
+        Cash,
+        Transfer,
     }
 }

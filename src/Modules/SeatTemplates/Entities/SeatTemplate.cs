@@ -3,20 +3,24 @@ using ShareXe.Base.Entities;
 
 using System.ComponentModel.DataAnnotations;
 
-namespace ShareXe.src.Modules.SeatTemplates.Entities
+namespace ShareXe.Modules.SeatTemplates.Entities
 {
     [Entity("seat_templates")]
     public class SeatTemplate : BaseEntity
     {
         [Required]
         public Guid VehicleTypeId { get; set; }
+
         [Required]
-        public String SeatCode { get; set; }
+        public string SeatCode { get; set; } = null!;
+
         [Required]
         public int PositionX { get; set; }
+
         [Required]
         public int PositionY { get; set; }
+
         [Required]
-        public bool isDriverSeated { get; set; }
+        public bool IsDriverSeat { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Diagnostics;
 
 using ShareXe.Base.Dtos;
 using ShareXe.Base.Exceptions;
-using ShareXe.src.Base.Enums;
+using ShareXe.Base.Enums;
 
 namespace ShareXe.Base.Middleware
 {

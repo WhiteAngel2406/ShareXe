@@ -1,13 +1,32 @@
-﻿namespace ShareXe.src.Modules.Hub.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+using ShareXe.Base.Attributes;
+using ShareXe.Base.Entities;
+
+namespace ShareXe.Modules.Hubs.Entities
 {
-    public class Hub
+    [Entity("hubs")]
+    public class Hub : BaseEntity
     {
-        public String Name { get; set; }
-        public String Address { get; set; }
+        [Required]
+        public string Name { get; set; } = null!;
+
+        [Required]
+        public string Address { get; set; } = null!;
+
+        [Required]
         public double Latitude { get; set; }
+
+        [Required]
         public double Longitude { get; set; }
-        public String Description { get; set; }
-        public String ImageUrl { get; set; }
+
+        [Required]
+        public string Description { get; set; } = null!;
+
+        [Required]
+        public string ImageUrl { get; set; } = null!;
+
+        [Required]
         public bool IsActive { get; set; }
     }
 }

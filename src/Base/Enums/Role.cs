@@ -1,4 +1,4 @@
-﻿namespace ShareXe.src.Base.Enums
+﻿namespace ShareXe.Base.Enums
 {
     public enum Role
     {
