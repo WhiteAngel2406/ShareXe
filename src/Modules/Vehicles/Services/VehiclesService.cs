@@ -4,6 +4,7 @@ using AutoMapper;
 using ShareXe.Base.Attributes;
 using ShareXe.Base.Enums;
 using ShareXe.Base.Exceptions;
+using ShareXe.Base.Repositories;
 using ShareXe.Modules.Auth;
 using ShareXe.Modules.Minio.Dtos;
 using ShareXe.Modules.Minio.Services;
@@ -75,8 +76,15 @@ namespace ShareXe.src.Modules.Vehicles.Services
         {
             var driverId = await GetCurrentDriverIdAsync();
 
-            // Trả về danh sách xe của tài xế này
-            return await vehiclesRepository.GetAsync(v => v.DriverId == driverId);
+            // Khởi tạo đối tượng QueryOptions và gán điều kiện vào thuộc tính Filter
+            var queryOptions = new QueryOptions<Vehicle>
+            {
+                Filter = v => v.DriverId == driverId
+                // Vì IsPagingEnabled mặc định là false, hàm này sẽ lấy toàn bộ xe của tài xế (không bị cắt trang)
+            };
+
+            // Truyền queryOptions vào hàm GetAllAsync
+            return await vehiclesRepository.GetAllAsync(queryOptions);
         }
 
         public async Task<VehicleDto> MapToVehicleDtoAsync(Vehicle vehicle)
