@@ -35,6 +35,8 @@ namespace ShareXe.Modules.Trips.Entities
         public Hub EndHub { get; set; } = null!;
 
         public TripStatus Status { get; set; }
+        [MaxLength(500)]
+        public string? Note { get; set; }
 
         public DateTimeOffset DepartureTime { get; set; }
 

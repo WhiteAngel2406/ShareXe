@@ -17,6 +17,7 @@ namespace ShareXe.Modules.DriverProfiles.Entities
         public User User { get; set; } = null!;
 
         [Required]
+        [MaxLength(20)]
         public string NationalIdCard { get; set; } = null!;
 
         public double RatingScore { get; set; }
