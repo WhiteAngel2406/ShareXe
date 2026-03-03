@@ -19,6 +19,6 @@ namespace ShareXe.Modules.VehicleTypes.Entities
         [Required]
         public int TotalSeat { get; set; }
 
-        public ICollection<SeatTemplate> VehicleTypes { get; set; } = [];
+        public ICollection<SeatTemplate> SeatTemplates { get; set; } = [];
     }
 }

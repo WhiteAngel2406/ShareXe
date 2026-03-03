@@ -49,14 +49,9 @@
     <Folder Include="src\Modules\Bookings\Dtos\" />
     <Folder Include="src\Modules\DriverProfiles\Dtos\" />
     <Folder Include="src\Modules\DriverProfiles\Services\" />
-    <Folder Include="src\Modules\DriverProfiles\Repositories\" />
     <Folder Include="src\Modules\Trips\Mappers\" />
     <Folder Include="src\Modules\Trips\Dtos\" />
     <Folder Include="src\Modules\Trips\Services\" />
-    <Folder Include="src\Modules\Vehicles\Mappers\" />
-    <Folder Include="src\Modules\Vehicles\Dtos\" />
-    <Folder Include="src\Modules\Vehicles\Services\" />
-    <Folder Include="src\Modules\VehicleTypes\Controllers\" />
   </ItemGroup>
 
 </Project>
