@@ -44,14 +44,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="src\Modules\BookingSeats\Controllers\" />
-    <Folder Include="src\Modules\Bookings\Mappers\" />
-    <Folder Include="src\Modules\Bookings\Dtos\" />
     <Folder Include="src\Modules\DriverProfiles\Dtos\" />
     <Folder Include="src\Modules\DriverProfiles\Services\" />
-    <Folder Include="src\Modules\Trips\Mappers\" />
-    <Folder Include="src\Modules\Trips\Dtos\" />
-    <Folder Include="src\Modules\Trips\Services\" />
   </ItemGroup>
 
 </Project>

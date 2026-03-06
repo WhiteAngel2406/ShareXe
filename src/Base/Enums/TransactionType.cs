@@ -5,6 +5,7 @@
         Deposit = 0,
         Payment = 1,
         Refund = 2,
-        Withdraw = 3
+        Withdraw = 3,
+        TopUp = 4,
     }
 }
