@@ -52,5 +52,18 @@ namespace ShareXe.src.Modules.Bookings.Controllers
             var booking = await bookingsService.PayBookingAsync(id);
             return Ok(SuccessResponse<BookingDto>.WithData(booking, "Thanh toán chuyến đi thành công."));
         }
+
+        [HttpPost("{id}/cancel")]
+        [SwaggerOperation(
+            Summary = "Cancel a booking and refund",
+            Description = "Cancels a specific booking. If the booking was already paid (Confirmed), the system will automatically refund the full amount to the user's wallet."
+        )]
+        [SwaggerResponse(200, "Returns the cancelled booking details.")]
+        [SwaggerResponse(400, "Cannot cancel this booking.")]
+        public async Task<ActionResult<SuccessResponse<BookingDto>>> CancelBooking(Guid id)
+        {
+            var booking = await bookingsService.CancelBookingAsync(id);
+            return Ok(SuccessResponse<BookingDto>.WithData(booking, "Hủy chuyến thành công. Số ghế đã được giải phóng."));
+        }
     }
 }

@@ -171,6 +171,73 @@ namespace ShareXe.src.Modules.Bookings.Services
                 throw new AppException(ErrorCode.InvalidRequest, "Quá trình thanh toán gặp sự cố. Vui lòng thử lại.");
             }
         }
+        public async Task<BookingDto> CancelBookingAsync(Guid bookingId)
+        {
+            // 1. Xác thực người dùng
+            var passengerId = await GetCurrentPassengerIdAsync();
+
+            // 2. Tìm đơn đặt xe
+            var booking = await bookingsRepository.GetOneAsync(b => b.Id == bookingId && b.PassengerId == passengerId);
+            if (booking == null)
+            {
+                throw new AppException(ErrorCode.NotFound, "Không tìm thấy đơn đặt xe.");
+            }
+
+            // 3. Kiểm tra xem đơn có được phép hủy không
+            // Không thể hủy đơn đã hoàn thành hoặc đã bị hủy từ trước
+            if (booking.Status == BookingStatus.Cancelled || booking.Status == BookingStatus.Completed)
+            {
+                throw new AppException(ErrorCode.InvalidRequest, "Không thể hủy đơn đặt xe ở trạng thái hiện tại.");
+            }
+
+            // Kiểm tra xem đơn này đã thanh toán chưa (để biết có cần hoàn tiền không)
+            bool requiresRefund = booking.Status == BookingStatus.Confirmed;
+
+            // 4. BẮT ĐẦU TRANSACTION DATABASE
+            using var dbTransaction = await context.Database.BeginTransactionAsync();
+
+            try
+            {
+                // Bước A: Đổi trạng thái đơn thành Cancelled
+                booking.Status = BookingStatus.Cancelled;
+                await bookingsRepository.UpdateAsync(booking);
+
+                // Bước B: Nếu đã thanh toán, tiến hành HOÀN TIỀN
+                if (requiresRefund)
+                {
+                    var wallet = await walletsRepository.GetOneAsync(w => w.UserId == passengerId);
+                    if (wallet == null) throw new AppException(ErrorCode.NotFound, "Không tìm thấy ví để hoàn tiền.");
+
+                    // Cộng lại 100% tiền vào ví (Bạn có thể thêm logic tính % hoàn tiền tùy theo thời gian thực tế ở đây)
+                    wallet.Balance += booking.TotalPrice;
+                    await walletsRepository.UpdateAsync(wallet);
+
+                    // Tạo lịch sử giao dịch Hoàn Tiền
+                    var transaction = new WalletTransaction
+                    {
+                        WalletId = wallet.Id,
+                        Amount = booking.TotalPrice,
+                        TransactionType = TransactionType.Refund, // Giả định bạn có enum Refund
+                        PaymentMethod = PaymentMethod.Wallet,
+                        Description = $"Hoàn tiền do hủy chuyến đi mã: {bookingId}",
+                        Status = TransactionStatus.Complete,
+                        ReferenceCode = $"RF-{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}"
+                    };
+                    await walletTransactionsRepository.AddAsync(transaction);
+                }
+
+                // 5. COMMIT TRANSACTION (Xác nhận thay đổi)
+                await dbTransaction.CommitAsync();
+
+                return mapper.Map<BookingDto>(booking);
+            }
+            catch (Exception)
+            {
+                // Nếu lỗi, rollback để đảm bảo trạng thái ghế và tiền trong ví không bị sai lệch
+                await dbTransaction.RollbackAsync();
+                throw new AppException(ErrorCode.InvalidRequest, "Quá trình hủy chuyến gặp sự cố. Vui lòng thử lại.");
+            }
+        }
     }
 }
-}
+
