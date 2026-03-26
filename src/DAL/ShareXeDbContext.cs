@@ -66,6 +66,13 @@ namespace ShareXe.DAL
                         property.SetValueConverter(utcConverter);
                     }
                 }
+
+                // 4. Disable Cascade Delete globally to prevent cycles or multiple cascade paths
+                var foreignKeys = entityType.GetForeignKeys();
+                foreach (var foreignKey in foreignKeys)
+                {
+                    foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
+                }
             }
 
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ShareXe.src.Modules.SeatTemplates.Dtos
+namespace ShareXe.Modules.SeatTemplates.Dtos
 {
     public class CreateSeatTemplateDto
     {

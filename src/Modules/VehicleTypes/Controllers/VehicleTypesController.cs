@@ -2,12 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 
 using ShareXe.Base.Dtos;
-using ShareXe.src.Modules.VehicleTypes.Dtos;
-using ShareXe.src.Modules.VehicleTypes.Services;
+using ShareXe.Modules.VehicleTypes.Dtos;
+using ShareXe.Modules.VehicleTypes.Services;
 
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace ShareXe.src.Modules.VehicleTypes.Controllers
+namespace ShareXe.Modules.VehicleTypes.Controllers
 {
     [ApiController]
     [Route("/api/v1/vehicle-types")]

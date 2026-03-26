@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 using ShareXe.Base.Dtos;
-using ShareXe.src.Modules.SeatTemplates.Dtos;
-using ShareXe.src.Modules.SeatTemplates.Services;
+using ShareXe.Modules.SeatTemplates.Dtos;
+using ShareXe.Modules.SeatTemplates.Services;
 
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace ShareXe.src.Modules.SeatTemplates.Controllers
+namespace ShareXe.Modules.SeatTemplates.Controllers
 {
     [ApiController]
     [Route("/api/v1/seat-templates")]

@@ -1,6 +1,6 @@
 ﻿using ShareXe.Modules.Minio.Dtos;
 
-namespace ShareXe.src.Modules.Vehicles.Dtos
+namespace ShareXe.Modules.Vehicles.Dtos
 {
     public class VehicleDto
     {

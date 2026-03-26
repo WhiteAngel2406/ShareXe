@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ShareXe.src.Modules.VehicleTypes.Dtos
+namespace ShareXe.Modules.VehicleTypes.Dtos
 {
     public class CreateVehicleTypeDto
     {

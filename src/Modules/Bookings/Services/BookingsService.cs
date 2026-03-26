@@ -10,13 +10,13 @@ using ShareXe.Modules.Bookings.Entities;
 using ShareXe.Modules.BookingSeats.Entities;
 using ShareXe.Modules.Users.Repositories;
 using ShareXe.Modules.WalletTransactions.Entities;
-using ShareXe.src.Modules.Bookings.Dtos;
-using ShareXe.src.Modules.Bookings.Repositories;
-using ShareXe.src.Modules.Trips.Repositories;
-using ShareXe.src.Modules.Wallets.Repositories;
-using ShareXe.src.Modules.WalletTransactions.Repositories;
+using ShareXe.Modules.Bookings.Dtos;
+using ShareXe.Modules.Bookings.Repositories;
+using ShareXe.Modules.Trips.Repositories;
+using ShareXe.Modules.Wallets.Repositories;
+using ShareXe.Modules.WalletTransactions.Repositories;
 
-namespace ShareXe.src.Modules.Bookings.Services
+namespace ShareXe.Modules.Bookings.Services
 {
     [Injectable]
     public class BookingsService(

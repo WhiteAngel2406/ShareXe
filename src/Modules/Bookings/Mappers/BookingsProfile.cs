@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 
 using ShareXe.Modules.Bookings.Entities;
-using ShareXe.src.Modules.Bookings.Dtos;
+using ShareXe.Modules.Bookings.Dtos;
 
-namespace ShareXe.src.Modules.Bookings.Mappers
+namespace ShareXe.Modules.Bookings.Mappers
 {
     public class BookingsProfile : Profile
     {

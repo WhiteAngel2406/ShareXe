@@ -18,6 +18,58 @@ namespace ShareXe.Modules.Minio.Services
     {
         private readonly string _bucket = config["MINIO_BUCKET"] ?? "sharexe_bucket";
         private readonly string _publicEndpoint = config["MINIO_PUBLIC_ENDPOINT"] ?? "";
+        private static readonly HttpClient _httpClient = new();
+
+        public async Task<MinioFileResponse?> UploadFileFromUrlAsync(string url, string? folder)
+        {
+            if (string.IsNullOrWhiteSpace(url)) return null;
+
+            try
+            {
+                var response = await _httpClient.GetAsync(url);
+                response.EnsureSuccessStatusCode();
+
+                var contentType = response.Content.Headers.ContentType?.MediaType ?? "application/octet-stream";
+                var extension = contentType switch
+                {
+                    "image/jpeg" => ".jpg",
+                    "image/png" => ".png",
+                    "image/gif" => ".gif",
+                    "image/webp" => ".webp",
+                    _ => ""
+                };
+
+                var originalFileName = $"avatar{extension}";
+                var timestamp = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
+                var uniqueId = Guid.NewGuid().ToString();
+
+                string savedFileName = string.IsNullOrWhiteSpace(folder)
+                    ? $"{timestamp}-{uniqueId}-{originalFileName}"
+                    : $"{folder}/{timestamp}-{uniqueId}-{originalFileName}";
+
+                await using var stream = await response.Content.ReadAsStreamAsync();
+
+                var putObjectArgs = new PutObjectArgs()
+                    .WithBucket(_bucket)
+                    .WithObject(savedFileName)
+                    .WithStreamData(stream)
+                    .WithObjectSize(stream.Length)
+                    .WithContentType(contentType);
+
+                await minioClient.PutObjectAsync(putObjectArgs);
+
+                return new MinioFileResponse
+                {
+                    FileName = savedFileName,
+                    Url = await GeneratePresignedUrlAsync(savedFileName)
+                };
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error uploading file from URL: {Url}", url);
+                return null;
+            }
+        }
 
         public async Task<MinioFileResponse> UploadFileAsync(IFormFile file, string? folder)
         {

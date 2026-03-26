@@ -2,7 +2,7 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace ShareXe.src.Modules.Bookings.Dtos
+namespace ShareXe.Modules.Bookings.Dtos
 {
     public class CreateBookingDto
     {

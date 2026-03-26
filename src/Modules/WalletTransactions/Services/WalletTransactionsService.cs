@@ -6,12 +6,12 @@ using ShareXe.Base.Exceptions;
 using ShareXe.Base.Repositories;
 using ShareXe.DAL;
 using ShareXe.Modules.WalletTransactions.Entities;
-using ShareXe.src.Modules.Wallets.Repositories;
-using ShareXe.src.Modules.Wallets.Services;
-using ShareXe.src.Modules.WalletTransactions.Dtos;
-using ShareXe.src.Modules.WalletTransactions.Repositories;
+using ShareXe.Modules.Wallets.Repositories;
+using ShareXe.Modules.Wallets.Services;
+using ShareXe.Modules.WalletTransactions.Dtos;
+using ShareXe.Modules.WalletTransactions.Repositories;
 
-namespace ShareXe.src.Modules.WalletTransactions.Services
+namespace ShareXe.Modules.WalletTransactions.Services
 {
     [Injectable]
     public class WalletTransactionsService(

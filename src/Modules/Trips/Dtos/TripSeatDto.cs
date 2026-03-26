@@ -1,4 +1,4 @@
-﻿namespace ShareXe.src.Modules.Trips.Dtos
+﻿namespace ShareXe.Modules.Trips.Dtos
 {
     public class TripSeatDto
     {

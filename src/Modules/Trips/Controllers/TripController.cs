@@ -2,12 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 
 using ShareXe.Base.Dtos;
-using ShareXe.src.Modules.Trips.Dtos;
-using ShareXe.src.Modules.Trips.Services;
+using ShareXe.Modules.Trips.Dtos;
+using ShareXe.Modules.Trips.Services;
 
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace ShareXe.src.Modules.Trips.Controller
+namespace ShareXe.Modules.Trips.Controller
 {
     [ApiController]
     [Route("/api/v1/trips")]

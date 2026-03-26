@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using ShareXe.Base.Dtos;
 using ShareXe.Modules.Auth.Services;
 using ShareXe.Modules.Users.Dtos;
+using ShareXe.Modules.Users.Services;
 
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -11,7 +12,10 @@ namespace ShareXe.Modules.Auth.Controllers
 {
     [ApiController]
     [Route("/api/v1/auth/")]
-    public class AuthController(AuthService authService) : ControllerBase
+    public class AuthController(
+        AuthService authService,
+        UsersService usersService
+    ) : ControllerBase
     {
         [HttpPost("login-swagger")]
         [Consumes("application/x-www-form-urlencoded")]
@@ -43,8 +47,9 @@ namespace ShareXe.Modules.Auth.Controllers
         [SwaggerResponse(500, "Internal server error")]
         public async Task<ActionResult<SuccessResponse<UserProfileDto>>> SyncAccount()
         {
-            var account = await authService.SyncAccountFromFirebaseAsync();
-            var userProfileDto = await authService.MapToUserProfileDtoAsync(account);
+            await authService.SyncAccountFromFirebaseAsync();
+            var user = await usersService.GetCurrentUserAsync();
+            var userProfileDto = await usersService.MapToUserProfileDtoAsync(user);
             return Ok(SuccessResponse<UserProfileDto>.WithData(userProfileDto, "Account synced successfully."));
         }
     }

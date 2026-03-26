@@ -6,10 +6,10 @@ using ShareXe.Base.Exceptions;
 using ShareXe.Modules.Auth;
 using ShareXe.Modules.Users.Repositories;
 using ShareXe.Modules.Wallets.Entities;
-using ShareXe.src.Modules.Wallets.Dtos;
-using ShareXe.src.Modules.Wallets.Repositories;
+using ShareXe.Modules.Wallets.Dtos;
+using ShareXe.Modules.Wallets.Repositories;
 
-namespace ShareXe.src.Modules.Wallets.Services
+namespace ShareXe.Modules.Wallets.Services
 {
     [Injectable]
     public class WalletsService(

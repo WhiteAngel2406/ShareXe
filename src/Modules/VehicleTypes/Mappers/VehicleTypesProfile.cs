@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 
 using ShareXe.Modules.VehicleTypes.Entities;
-using ShareXe.src.Modules.VehicleTypes.Dtos;
+using ShareXe.Modules.VehicleTypes.Dtos;
 
-namespace ShareXe.src.Modules.VehicleTypes.Mappers
+namespace ShareXe.Modules.VehicleTypes.Mappers
 {
     public class VehicleTypesProfile : Profile
     {

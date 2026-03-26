@@ -1,6 +1,6 @@
 ﻿using ShareXe.Base.Dtos;
 
-namespace ShareXe.src.Modules.VehicleTypes.Dtos
+namespace ShareXe.Modules.VehicleTypes.Dtos
 {
     public class VehicleTypeDto : EntityDto
     {

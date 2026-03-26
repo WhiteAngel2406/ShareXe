@@ -1,13 +1,9 @@
-using AutoMapper;
-
 using ShareXe.Base.Attributes;
 using ShareXe.Base.Enums;
 using ShareXe.Base.Exceptions;
 using ShareXe.Modules.Auth.Entities;
 using ShareXe.Modules.Auth.Repositories;
-using ShareXe.Modules.Minio.Dtos;
 using ShareXe.Modules.Minio.Services;
-using ShareXe.Modules.Users.Dtos;
 using ShareXe.Modules.Users.Entities;
 
 namespace ShareXe.Modules.Auth.Services
@@ -18,7 +14,6 @@ namespace ShareXe.Modules.Auth.Services
       UserContext userContext,
       HttpClient httpClient,
       ILogger<AuthService> logger,
-      IMapper mapper,
       MinioService minioService,
       IConfiguration config)
     {
@@ -34,6 +29,17 @@ namespace ShareXe.Modules.Auth.Services
             var fullName = userContext.FullName;
             var email = userContext.Email;
             var avatar = userContext.Avatar;
+            logger.LogInformation("Avatar before processing: {Avatar}", avatar);
+
+            if (!string.IsNullOrWhiteSpace(avatar) && (avatar.StartsWith("http://") || avatar.StartsWith("https://")))
+            {
+                var minioResponse = await minioService.UploadFileFromUrlAsync(avatar, "avatars");
+                if (minioResponse != null)
+                {
+                    avatar = minioResponse.FileName;
+                    logger.LogInformation("Avatar after processing: {Avatar}", avatar);
+                }
+            }
 
             var account = await accountsRepository.GetByFirebaseUidAsync(firebaseUid);
 
@@ -111,21 +117,6 @@ namespace ShareXe.Modules.Auth.Services
             return data!.IdToken;
         }
 
-        public async Task<UserProfileDto> MapToUserProfileDtoAsync(Account account)
-        {
-            var userProfileDto = mapper.Map<UserProfileDto>(account);
-
-            if (!string.IsNullOrEmpty(account.User?.Avatar))
-            {
-                userProfileDto.Avatar = new MinioFileResponse
-                {
-                    FileName = account.User.Avatar,
-                    Url = await minioService.GeneratePresignedUrlAsync(account.User.Avatar)
-                };
-            }
-
-            return userProfileDto;
-        }
     }
 
     public class FirebaseSignInResponse

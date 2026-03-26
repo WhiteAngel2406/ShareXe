@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 
 using ShareXe.Modules.SeatTemplates.Entities;
-using ShareXe.src.Modules.SeatTemplates.Dtos;
+using ShareXe.Modules.SeatTemplates.Dtos;
 
-namespace ShareXe.src.Modules.SeatTemplates.Mappers
+namespace ShareXe.Modules.SeatTemplates.Mappers
 {
     public class SeatTemplatesProfile : Profile
     {

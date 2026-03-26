@@ -8,14 +8,14 @@ using ShareXe.Modules.Auth;
 using ShareXe.Modules.BookingSeats.Entities;
 using ShareXe.Modules.SeatTemplates.Entities;
 using ShareXe.Modules.Trips.Entities;
-using ShareXe.src.Modules.BookingSeats.Repositories;
-using ShareXe.src.Modules.DriverProfiles.Repositories;
-using ShareXe.src.Modules.SeatTemplates.Repositories;
-using ShareXe.src.Modules.Trips.Dtos;
-using ShareXe.src.Modules.Trips.Repositories;
-using ShareXe.src.Modules.Vehicles.Repositories;
+using ShareXe.Modules.BookingSeats.Repositories;
+using ShareXe.Modules.DriverProfiles.Repositories;
+using ShareXe.Modules.SeatTemplates.Repositories;
+using ShareXe.Modules.Trips.Dtos;
+using ShareXe.Modules.Trips.Repositories;
+using ShareXe.Modules.Vehicles.Repositories;
 
-namespace ShareXe.src.Modules.Trips.Services
+namespace ShareXe.Modules.Trips.Services
 {
     [Injectable]
     public class TripsService(

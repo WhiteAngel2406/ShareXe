@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 
 using ShareXe.Modules.WalletTransactions.Entities;
-using ShareXe.src.Modules.WalletTransactions.Dtos;
+using ShareXe.Modules.WalletTransactions.Dtos;
 
-namespace ShareXe.src.Modules.WalletTransactions.Mappers
+namespace ShareXe.Modules.WalletTransactions.Mappers
 {
     public class WalletTransactionsProfile : Profile
     {

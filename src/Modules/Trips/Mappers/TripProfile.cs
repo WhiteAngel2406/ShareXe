@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 
 using ShareXe.Modules.Trips.Entities;
-using ShareXe.src.Modules.Trips.Dtos;
+using ShareXe.Modules.Trips.Dtos;
 
-namespace ShareXe.src.Modules.Trips.Mappers
+namespace ShareXe.Modules.Trips.Mappers
 {
     public class TripsProfile : Profile
     {

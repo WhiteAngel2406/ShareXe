@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ShareXe.src.Modules.Trips.Dtos
+namespace ShareXe.Modules.Trips.Dtos
 {
     public class CreateTripDto
     {

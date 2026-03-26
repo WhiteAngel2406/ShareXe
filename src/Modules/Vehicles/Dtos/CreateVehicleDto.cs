@@ -2,7 +2,7 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace ShareXe.src.Modules.Vehicles.Dtos
+namespace ShareXe.Modules.Vehicles.Dtos
 {
     public class CreateVehicleDto
     {

@@ -1,7 +1,7 @@
 ﻿using ShareXe.Base.Dtos;
 using ShareXe.Base.Enums;
 
-namespace ShareXe.src.Modules.Bookings.Dtos
+namespace ShareXe.Modules.Bookings.Dtos
 {
     public class BookingDto : EntityDto
     {

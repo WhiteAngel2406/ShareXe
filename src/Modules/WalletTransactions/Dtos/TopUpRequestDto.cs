@@ -2,7 +2,7 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace ShareXe.src.Modules.WalletTransactions.Dtos
+namespace ShareXe.Modules.WalletTransactions.Dtos
 {
     public class TopUpRequestDto
     {

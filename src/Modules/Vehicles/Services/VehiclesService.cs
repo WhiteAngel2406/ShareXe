@@ -9,11 +9,11 @@ using ShareXe.Modules.Auth;
 using ShareXe.Modules.Minio.Dtos;
 using ShareXe.Modules.Minio.Services;
 using ShareXe.Modules.Vehicles.Entities;
-using ShareXe.src.Modules.DriverProfiles.Repositories;
-using ShareXe.src.Modules.Vehicles.Dtos;
-using ShareXe.src.Modules.Vehicles.Repositories;
+using ShareXe.Modules.DriverProfiles.Repositories;
+using ShareXe.Modules.Vehicles.Dtos;
+using ShareXe.Modules.Vehicles.Repositories;
 
-namespace ShareXe.src.Modules.Vehicles.Services
+namespace ShareXe.Modules.Vehicles.Services
 
 {
     [Injectable]

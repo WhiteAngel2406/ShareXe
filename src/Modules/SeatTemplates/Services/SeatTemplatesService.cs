@@ -5,10 +5,10 @@ using ShareXe.Base.Enums;
 using ShareXe.Base.Exceptions;
 using ShareXe.Base.Repositories;
 using ShareXe.Modules.SeatTemplates.Entities;
-using ShareXe.src.Modules.SeatTemplates.Dtos;
-using ShareXe.src.Modules.SeatTemplates.Repositories;
+using ShareXe.Modules.SeatTemplates.Dtos;
+using ShareXe.Modules.SeatTemplates.Repositories;
 
-namespace ShareXe.src.Modules.SeatTemplates.Services
+namespace ShareXe.Modules.SeatTemplates.Services
 {
     [Injectable]
     public class SeatTemplatesService(

@@ -5,10 +5,10 @@ using ShareXe.Base.Enums;
 using ShareXe.Base.Exceptions;
 using ShareXe.Base.Repositories;
 using ShareXe.Modules.VehicleTypes.Entities;
-using ShareXe.src.Modules.VehicleTypes.Dtos;
-using ShareXe.src.Modules.VehicleTypes.Repositories;
+using ShareXe.Modules.VehicleTypes.Dtos;
+using ShareXe.Modules.VehicleTypes.Repositories;
 
-namespace ShareXe.src.Modules.VehicleTypes.Services
+namespace ShareXe.Modules.VehicleTypes.Services
 {
     [Injectable]
     public class VehicleTypesService(

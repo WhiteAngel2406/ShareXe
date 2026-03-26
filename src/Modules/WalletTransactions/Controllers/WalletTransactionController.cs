@@ -2,12 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 
 using ShareXe.Base.Dtos;
-using ShareXe.src.Modules.WalletTransactions.Dtos;
-using ShareXe.src.Modules.WalletTransactions.Services;
+using ShareXe.Modules.WalletTransactions.Dtos;
+using ShareXe.Modules.WalletTransactions.Services;
 
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace ShareXe.src.Modules.WalletTransactions.Controllers
+namespace ShareXe.Modules.WalletTransactions.Controllers
 {
     [ApiController]
     [Route("/api/v1/wallet-transactions")]

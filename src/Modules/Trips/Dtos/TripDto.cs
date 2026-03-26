@@ -1,7 +1,7 @@
 ﻿using ShareXe.Base.Dtos;
 using ShareXe.Base.Enums;
 
-namespace ShareXe.src.Modules.Trips.Dtos
+namespace ShareXe.Modules.Trips.Dtos
 {
     public class TripDto : EntityDto
     {

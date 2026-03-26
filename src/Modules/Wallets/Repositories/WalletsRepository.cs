@@ -3,7 +3,7 @@ using ShareXe.Base.Repositories;
 using ShareXe.DAL;
 using ShareXe.Modules.Wallets.Entities;
 
-namespace ShareXe.src.Modules.Wallets.Repositories
+namespace ShareXe.Modules.Wallets.Repositories
 {
     [Injectable]
     public class WalletsRepository(ShareXeDbContext context) : BaseRepository<Wallet>(context)

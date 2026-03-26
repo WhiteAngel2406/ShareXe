@@ -1,6 +1,6 @@
 ﻿using ShareXe.Base.Dtos;
 
-namespace ShareXe.src.Modules.Wallets.Dtos
+namespace ShareXe.Modules.Wallets.Dtos
 {
     public class WalletDto : EntityDto
     {
