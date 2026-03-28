@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+using NetTopologySuite.Geometries;
+
 using ShareXe.Base.Attributes;
 using ShareXe.Base.Entities;
 
@@ -19,6 +21,9 @@ namespace ShareXe.Modules.Hubs.Entities
 
         [Required]
         public double Longitude { get; set; }
+
+        [Required]
+        public Point Location { get; set; } = null!;
 
         [Required]
         public string Description { get; set; } = null!;

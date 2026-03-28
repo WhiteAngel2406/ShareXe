@@ -26,5 +26,17 @@ namespace ShareXe.Modules.Hubs.Services
 
             return PagedResponse<HubDto>.WithPaging(dtoList, totalCount, page, pageSize);
         }
+
+        public async Task<IEnumerable<HubDto>> GetNearbyHubsAsync(GetNearbyHubsRequest request, CancellationToken cancellationToken)
+        {
+            IEnumerable<Hub> hubs = await hubsRepository.GetNearbyAsync(
+                request.Latitude, 
+                request.Longitude, 
+                20000, // 20km
+                100, // limit to 100
+                cancellationToken);
+
+            return mapper.Map<IEnumerable<HubDto>>(hubs);
+        }
     }
 }

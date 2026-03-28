@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using NetTopologySuite.Geometries;
 
 #nullable disable
 
@@ -42,6 +43,7 @@ namespace ShareXe.Migrations
                     address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     latitude = table.Column<double>(type: "float", nullable: false),
                     longitude = table.Column<double>(type: "float", nullable: false),
+                    location = table.Column<Point>(type: "geography", nullable: false),
                     description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     image_url = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     is_active = table.Column<bool>(type: "bit", nullable: false),

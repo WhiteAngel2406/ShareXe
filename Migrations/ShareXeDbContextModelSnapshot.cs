@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using NetTopologySuite.Geometries;
 using ShareXe.DAL;
 
 #nullable disable
@@ -306,6 +307,11 @@ namespace ShareXe.Migrations
                     b.Property<double>("Latitude")
                         .HasColumnType("float")
                         .HasColumnName("latitude");
+
+                    b.Property<Point>("Location")
+                        .IsRequired()
+                        .HasColumnType("geography")
+                        .HasColumnName("location");
 
                     b.Property<double>("Longitude")
                         .HasColumnType("float")

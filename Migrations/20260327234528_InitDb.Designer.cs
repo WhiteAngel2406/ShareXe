@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using NetTopologySuite.Geometries;
 using ShareXe.DAL;
 
 #nullable disable
@@ -12,7 +13,7 @@ using ShareXe.DAL;
 namespace ShareXe.Migrations
 {
     [DbContext(typeof(ShareXeDbContext))]
-    [Migration("20260324142758_InitDb")]
+    [Migration("20260327234528_InitDb")]
     partial class InitDb
     {
         /// <inheritdoc />
@@ -309,6 +310,11 @@ namespace ShareXe.Migrations
                     b.Property<double>("Latitude")
                         .HasColumnType("float")
                         .HasColumnName("latitude");
+
+                    b.Property<Point>("Location")
+                        .IsRequired()
+                        .HasColumnType("geography")
+                        .HasColumnName("location");
 
                     b.Property<double>("Longitude")
                         .HasColumnType("float")

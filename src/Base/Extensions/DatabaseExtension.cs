@@ -16,7 +16,7 @@ namespace ShareXe.Base.Extensions
             var connectionString = $"Server=localhost,{dbPort};Database={dbName};User Id={dbUser};Password={dbPassword};TrustServerCertificate=True";
 
             services.AddDbContext<ShareXeDbContext>(options =>
-                options.UseSqlServer(connectionString).UseSnakeCaseNamingConvention());
+                options.UseSqlServer(connectionString, x => x.UseNetTopologySuite()).UseSnakeCaseNamingConvention());
 
             return services;
         }

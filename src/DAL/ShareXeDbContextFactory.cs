@@ -19,7 +19,7 @@ namespace ShareXe.DAL
             var dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD");
             var connectionString = $"Server=localhost,{dbPort};Database={dbName};User Id={dbUser};Password={dbPassword};TrustServerCertificate=True";
 
-            builder.UseSqlServer(connectionString).UseSnakeCaseNamingConvention();
+            builder.UseSqlServer(connectionString, x => x.UseNetTopologySuite()).UseSnakeCaseNamingConvention();
             return new ShareXeDbContext(builder.Options);
         }
     }
